@@ -1,7 +1,7 @@
 <?php
 require('dbconnect.php');
 
-$stmt = $db->query('SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) AS total_participants FROM events LEFT JOIN event_attendance ON events.id = event_attendance.event_id WHERE start_at >= CURRENT_DATE() GROUP BY events.id ORDER BY start_at;');
+$stmt = $db->query('SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) AS total_participants FROM events LEFT JOIN event_attendance ON events.id = event_attendance.event_id WHERE start_at >= CURRENT_DATE() AND user_id=1 AND status_id=1 GROUP BY events.id ORDER BY start_at;');
 $events = $stmt->fetchAll();
 
 function get_day_of_week ($w) {
@@ -10,6 +10,7 @@ function get_day_of_week ($w) {
 }
 // TODO:セッション管理する
 $user_id=1;
+print_r($user_id);
 
 ?>
 
