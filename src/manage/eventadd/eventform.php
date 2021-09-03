@@ -1,10 +1,9 @@
-<?php require('../../dbconnect.php');
+<?php require('dbconnect.php');
 
 $id = $_GET['id'];
 ?>
 <?php if (isset($id)) { ?>
   <?php
-  // <!-- 🍅と結合する -->
   $detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id WHERE events.id = $id";
   $detail_contents = $db->query($detail_contents_value)->fetch();
   ?>

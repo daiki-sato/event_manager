@@ -1,5 +1,5 @@
 <?php
-require('../../dbconnect.php');
+require('dbconnect.php');
 
 $stmt = $db->query('SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) AS total_participants FROM events LEFT JOIN event_attendance ON events.id = event_attendance.event_id WHERE start_at >= CURRENT_DATE() AND user_id=1 AND status_id=1 GROUP BY events.id ORDER BY start_at;');
 $events = $stmt->fetchAll();
@@ -28,27 +28,11 @@ function get_day_of_week ($w) {
       <div class="h-full">
         <img src="img/header-logo.png" alt="" class="h-full">
       </div>
-      <!-- 
-      <div>
-        <a href="/auth/login" class="text-white bg-blue-400 px-4 py-2 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-200">ログイン</a>
-      </div>
-      -->
     </div>
   </header>
 
   <main class="bg-gray-100">
     <div class="w-full mx-auto p-5">
-      <!-- 
-      <div id="filter" class="mb-8">
-        <h2 class="text-sm font-bold mb-3">フィルター</h2>
-        <div class="flex">
-          <a href="" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-blue-600 text-white">全て</a>
-          <a href="" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white">参加</a>
-          <a href="" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white">不参加</a>
-          <a href="" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white">未回答</a>
-        </div>
-      </div>
-      -->
       <div id="events-list">
         <div class="flex justify-between items-center mb-3">
           <h2 class="text-sm font-bold">一覧</h2>

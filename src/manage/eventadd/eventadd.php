@@ -1,5 +1,5 @@
 <?php
-require('../../dbconnect.php');
+require('dbconnect.php');
 
 // eventsに追加
 $sql = "INSERT INTO events (id , name , start_at , end_at) 
