@@ -12,6 +12,8 @@ function get_day_of_week($w)
 // TODO:セッション管理する
 $user_id=1;
 
+
+echo $_GET['user_id'];
 ?>
 
 <!DOCTYPE html>
