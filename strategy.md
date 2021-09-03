@@ -27,3 +27,8 @@
 * 練習通り
 ## 未回答
 * うるせえやれ
+
+SELECT events.name, events.start_at,users.name FROM `events` 
+INNER JOIN event_attendance ON events.id = event_attendance.event_id
+INNER JOIN users ON event_attendance.user_id = users.id
+ORDER BY events.start_at
