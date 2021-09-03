@@ -8,6 +8,9 @@ function get_day_of_week ($w) {
   $day_of_week_list = ['日', '月', '火', '水', '木', '金', '土'];
   return $day_of_week_list["$w"];
 }
+// TODO:セッション管理する
+$id=1;
+
 ?>
 
 <!DOCTYPE html>
