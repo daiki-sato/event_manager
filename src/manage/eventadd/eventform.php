@@ -31,7 +31,7 @@ $id = $_GET['id'];
 <?= $_POST['event_name'] ?>
 <hr>
 <div class="event__add__back">
-  <a class="event__add__top__back__button" href="../eventlist/index.php">トップへ戻る</a>
+  <a class="event__add__top__back__button" href="/manage/eventlist/index.php">トップへ戻る</a>
 </div>
 </body>
 </html>
