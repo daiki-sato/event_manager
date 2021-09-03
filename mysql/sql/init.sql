@@ -2,12 +2,12 @@ DROP SCHEMA IF EXISTS posse;
 CREATE SCHEMA posse;
 USE posse;
 
--- phpMyAdmin SQL Dump
+
 -- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: mysql
--- 生成日時: 2021 年 9 月 03 日 08:06
+-- 生成日時: 2021 年 9 月 03 日 11:53
 -- サーバのバージョン： 8.0.23
 -- PHP のバージョン: 7.4.13
 
@@ -85,11 +85,14 @@ CREATE TABLE `event_attendance` (
 INSERT INTO `event_attendance` (`id`, `event_id`, `user_id`, `status_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, 1, 1, '2021-09-03 01:50:46', '2021-09-03 04:53:19', NULL),
 (2, 1, 2, 1, '2021-09-03 01:50:46', '2021-09-03 05:01:56', NULL),
-(3, 1, 3, 2, '2021-09-03 01:50:46', '2021-09-03 05:02:01', NULL),
-(4, 2, 1, 2, '2021-09-03 01:50:46', '2021-09-03 04:53:25', NULL),
+(3, 1, 3, 0, '2021-09-03 01:50:46', '2021-09-03 10:13:05', NULL),
+(4, 2, 1, 0, '2021-09-03 01:50:46', '2021-09-03 10:13:03', NULL),
 (5, 2, 2, 1, '2021-09-03 01:50:46', '2021-09-03 05:02:04', NULL),
-(6, 3, 1, 2, '2021-09-03 01:50:46', '2021-09-03 04:53:28', NULL),
-(7, 1, 4, 1, '2021-09-03 02:31:56', '2021-09-03 05:02:50', NULL);
+(6, 3, 1, 0, '2021-09-03 01:50:46', '2021-09-03 10:13:08', NULL),
+(7, 1, 4, 1, '2021-09-03 02:31:56', '2021-09-03 05:02:50', NULL),
+(9, 6, 1, 0, '2021-09-03 10:00:48', '2021-09-03 10:00:48', NULL),
+(10, 6, 2, 0, '2021-09-03 10:00:48', '2021-09-03 10:00:48', NULL),
+(11, 6, 3, 0, '2021-09-03 10:00:48', '2021-09-03 10:00:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -132,6 +135,7 @@ CREATE TABLE `status` (
 --
 
 INSERT INTO `status` (`id`, `name`) VALUES
+(0, '未入力'),
 (1, '参加'),
 (2, '不参加'),
 (3, '遅刻'),
@@ -147,7 +151,7 @@ CREATE TABLE `users` (
   `id` int NOT NULL,
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `admin` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -158,7 +162,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `email`, `password`, `name`, `admin`) VALUES
 (1, 'test@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'SHUTO', 1),
 (2, 'test2@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'DAIKI', 1),
-(3, 'test3@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'TAROU', 1);
+(3, 'test3@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'TAROU', 1),
+(4, 'test4@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'MORIPA', 1);
 
 --
 -- ダンプしたテーブルのインデックス
@@ -210,7 +215,7 @@ ALTER TABLE `events`
 -- テーブルの AUTO_INCREMENT `event_attendance`
 --
 ALTER TABLE `event_attendance`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- テーブルの AUTO_INCREMENT `event_details`
@@ -219,16 +224,10 @@ ALTER TABLE `event_details`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- テーブルの AUTO_INCREMENT `status`
---
-ALTER TABLE `status`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- テーブルの AUTO_INCREMENT `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

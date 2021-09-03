@@ -3,7 +3,7 @@
 mb_language('ja');
 mb_internal_encoding('UTF-8');
 
-$to = "hackathon-teamX@posse-ap.com";
+$to = "shuto410@icloud.com";
 $subject = "PHPからメール送信サンプル";
 $body = "本文";
 $headers = ["From"=>"system@posse-ap.com", "Content-Type"=>"text/plain; charset=UTF-8", "Content-Transfer-Encoding"=>"8bit"];
