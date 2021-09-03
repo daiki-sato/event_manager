@@ -11,7 +11,8 @@ function get_day_of_week($w)
   return $day_of_week_list["$w"];
 }
 // TODO:セッション管理する
-$user_id = 1;
+$user_id=$_SESSION["ID"];
+
 ?>
 
 <!DOCTYPE html>
