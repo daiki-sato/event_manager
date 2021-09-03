@@ -1,22 +1,16 @@
 <?php
 require('dbconnect.php');
 
-
-
 $eventId_data = $_POST['event_id'];
 $userId_data = $_POST['user_id'];
 $statusId_data =  $_POST['status_id'];
 
-/*--------------------------------------
- * TODO:日付とかも持ってくる
- * →参加/不参加を更新したときの日付をevent_attendanceのupdated_adにいれる
----------------------------------------*/
 if (isset($statusId_data)) {
   // INSERT文を変数に格納
-  $sql = "INSERT INTO event_attendance ( event_id , user_id , status_id) 
-          VALUES (:event_id , :user_id , :status_id)
+  $sql = "INSERT INTO event_attendance ( event_id , user_id , status_id , created_at ) 
+          VALUES (:event_id , :user_id , :status_id , now())
           ON DUPLICATE KEY UPDATE 
-          status_id = :status_id";
+          status_id = :status_id , updated_at = now()";
 
   // 挿入する値は空のまま、SQL実行の準備をする
   $stmt = $db->prepare($sql);
