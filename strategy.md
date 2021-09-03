@@ -28,9 +28,8 @@
 ## 未回答
 * うるせえやれ
 
-SELECT events.name, events.start_at,users.name FROM `events` 
-INNER JOIN event_attendance ON events.id = event_attendance.event_id
-INNER JOIN users ON event_attendance.user_id = users.id
+SELECT events.name, events.start_at,users.name , event_attendance.status_id FROM events INNER JOIN event_attendance ON events.id = event_attendance.event_id INNER JOIN users ON event_attendance.user_id = users.id 
+WHERE event_attendance.status_id =0
 ORDER BY events.start_at
 
 id分のデータを入れる
