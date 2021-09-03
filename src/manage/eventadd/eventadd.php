@@ -1,5 +1,5 @@
 <?php
-require('dbconnect.php');
+include($_SERVER['DOCUMENT_ROOT'] . "/dbconnect.php");
 
 // eventsに追加
 $sql = "INSERT INTO events (id , name , start_at , end_at) 
@@ -24,7 +24,7 @@ $sql = "INSERT INTO event_details ( id , event_id , text )
 
 $stmt = $db->prepare($sql);
 
-$params = array(':id' =>(int)$_POST["id"], ':event_id' => $eventId, ':text' => $_POST["text"]);
+$params = array(':id' => (int)$_POST["id"], ':event_id' => $eventId, ':text' => $_POST["text"]);
 
 $stmt->execute($params);
 
