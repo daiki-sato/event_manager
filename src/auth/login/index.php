@@ -1,3 +1,17 @@
+<?php
+session_start();
+function h($s)
+{
+    return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
+}
+//ログイン済みの場合
+if (isset($_SESSION['ID'])) {
+    echo 'ようこそ' .  h($_SESSION['name']) . "さん<br>";
+    echo "<a href='/session/logout.php'>ログアウトはこちら。</a>";
+    echo "<a href='/'>TOPはこちら</a>";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -21,9 +35,11 @@
   <main class="bg-gray-100 h-screen">
     <div class="w-full mx-auto py-10 px-5">
       <h2 class="text-md font-bold mb-5">ログイン</h2>
-      <form action="/" method="POST">
-        <input type="email" placeholder="メールアドレス" class="w-full p-4 text-sm mb-3">
-        <input type="password" placeholder="パスワード" class="w-full p-4 text-sm mb-3">
+      <form action="/session/login.php" method="POST">
+        <label for="email">email</label>
+        <input name="email" type="email" placeholder="メールアドレス" class="w-full p-4 text-sm mb-3">
+        <label for="password">password</label>
+        <input name="password" type="password" placeholder="パスワード" class="w-full p-4 text-sm mb-3">
         <label class="inline-block mb-6">
           <input type="checkbox" checked>
           <span class="text-sm">ログイン状態を保持する</span>
@@ -31,7 +47,7 @@
         <input type="submit" value="ログイン" class="cursor-pointer w-full p-3 text-md text-white bg-blue-400 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-300">
       </form>
       <div class="text-center text-xs text-gray-400 mt-6">
-        <a href="/">パスワードを忘れた方はこちら</a>
+        <a href="/auth/signup">パスワードを忘れた方はこちら</a>
       </div>
     </div>
   </main>
