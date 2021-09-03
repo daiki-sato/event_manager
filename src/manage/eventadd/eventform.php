@@ -1,4 +1,4 @@
-<?php require('dbconnect.php');
+<?php include($_SERVER['DOCUMENT_ROOT'] . "/dbconnect.php");
 
 $id = $_GET['id'];
 ?>

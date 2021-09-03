@@ -1,6 +1,5 @@
 <?php
-require('dbconnect.php');
-
+include($_SERVER['DOCUMENT_ROOT'] . "/dbconnect.php");
 $stmt = $db->query('SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) AS total_participants FROM events LEFT JOIN event_attendance ON events.id = event_attendance.event_id WHERE start_at >= CURRENT_DATE() AND user_id=1 AND status_id=1 GROUP BY events.id ORDER BY start_at;');
 $events = $stmt->fetchAll();
 
@@ -20,14 +19,18 @@ function get_day_of_week ($w) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   <title>Schedule | POSSE</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <header class="h-16">
     <div class="flex justify-between items-center w-full h-full mx-auto pl-2 pr-5">
       <div class="h-full">
-        <img src="img/header-logo.png" alt="" class="h-full">
+        <img src="../../img/header-logo.png" alt="" class="h-full">
       </div>
+      <div><a href="#">イベント一覧</a></div>
+      <div><a href="../eventadd/eventform.php">イベント追加</a></div>
+      <div><a href="../eventadd/eventform.php">ユーザー追加</a></div>
     </div>
   </header>
 
