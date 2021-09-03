@@ -7,7 +7,7 @@ USE posse;
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: mysql
--- 生成日時: 2021 年 9 月 03 日 05:10
+-- 生成日時: 2021 年 9 月 03 日 08:06
 -- サーバのバージョン： 8.0.23
 -- PHP のバージョン: 7.4.13
 
@@ -33,7 +33,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `events` (
   `id` int NOT NULL,
-  `name` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `start_at` datetime DEFAULT NULL,
   `end_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -100,7 +100,7 @@ INSERT INTO `event_attendance` (`id`, `event_id`, `user_id`, `status_id`, `creat
 CREATE TABLE `event_details` (
   `id` int NOT NULL,
   `event_id` int NOT NULL,
-  `text` text COLLATE utf8_unicode_ci NOT NULL
+  `text` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -124,7 +124,7 @@ INSERT INTO `event_details` (`id`, `event_id`, `text`) VALUES
 
 CREATE TABLE `status` (
   `id` int NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -150,6 +150,15 @@ CREATE TABLE `users` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `admin` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- テーブルのデータのダンプ `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `password`, `name`, `admin`) VALUES
+(1, 'test@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'SHUTO', 1),
+(2, 'test2@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'DAIKI', 1),
+(3, 'test3@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'TAROU', 1);
 
 --
 -- ダンプしたテーブルのインデックス
@@ -219,7 +228,7 @@ ALTER TABLE `status`
 -- テーブルの AUTO_INCREMENT `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
