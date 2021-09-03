@@ -4,10 +4,15 @@ require('dbconnect.php');
 $stmt = $db->query('SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) AS total_participants FROM events LEFT JOIN event_attendance ON events.id = event_attendance.event_id GROUP BY events.id');
 $events = $stmt->fetchAll();
 
-function get_day_of_week ($w) {
+function get_day_of_week($w)
+{
   $day_of_week_list = ['日', '月', '火', '水', '木', '金', '土'];
   return $day_of_week_list["$w"];
 }
+
+
+$id = $_GET['id'];
+echo $id;
 ?>
 
 <!DOCTYPE html>
@@ -27,17 +32,17 @@ function get_day_of_week ($w) {
       <div class="h-full">
         <img src="img/header-logo.png" alt="" class="h-full">
       </div>
-      <!-- 
+
       <div>
         <a href="/auth/login" class="text-white bg-blue-400 px-4 py-2 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-200">ログイン</a>
       </div>
-      -->
+
     </div>
   </header>
 
   <main class="bg-gray-100">
     <div class="w-full mx-auto p-5">
-      <!-- 
+
       <div id="filter" class="mb-8">
         <h2 class="text-sm font-bold mb-3">フィルター</h2>
         <div class="flex">
@@ -47,7 +52,7 @@ function get_day_of_week ($w) {
           <a href="" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white">未回答</a>
         </div>
       </div>
-      -->
+
       <div id="events-list">
         <div class="flex justify-between items-center mb-3">
           <h2 class="text-sm font-bold">一覧</h2>
@@ -70,18 +75,18 @@ function get_day_of_week ($w) {
             <div class="flex flex-col justify-between text-right">
               <div>
                 <?php if ($event['id'] % 3 === 1) : ?>
-                  <!--
+
                   <p class="text-sm font-bold text-yellow-400">未回答</p>
                   <p class="text-xs text-yellow-400">期限 <?php echo date("m月d日", strtotime('-3 day', $end_date)); ?></p>
-                  -->
+
                 <?php elseif ($event['id'] % 3 === 2) : ?>
-                  <!-- 
+
                   <p class="text-sm font-bold text-gray-300">不参加</p>
-                  -->
+
                 <?php else : ?>
-                  <!-- 
+
                   <p class="text-sm font-bold text-green-400">参加</p>
-                  -->
+
                 <?php endif; ?>
               </div>
               <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
