@@ -9,10 +9,9 @@ function get_day_of_week($w)
   $day_of_week_list = ['日', '月', '火', '水', '木', '金', '土'];
   return $day_of_week_list["$w"];
 }
+// TODO:セッション管理する
+$user_id=1;
 
-
-$id = $_GET['id'];
-echo $id;
 ?>
 
 <!DOCTYPE html>
