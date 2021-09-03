@@ -110,7 +110,7 @@ for($i = 1; $i <= $max_page; $i++){ // 最大ページ数分リンクを作成
     if ($i == $now) { // 現在表示中のページ数の場合はリンクを貼らない
         echo $now. '　'; 
     } else {
-        echo '<a href="/?page_id='. $i. '")>'. $i. '</a>';
+        echo '<a href="/manage/eventlist/index.php?page_id='. $i. '")>'. $i. '</a>';
     }
 }
  
