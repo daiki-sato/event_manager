@@ -59,10 +59,10 @@ $user_id=$_SESSION["ID"];
 
     //全てをstatus_id=Null,参加status_id=1,不参加status_id=2,未回答status_id=0で場合分け（ステータスによって表示変更）
 if (isset($_GET['status_id'])) {
-     $get_status_id=$_GET['status_id'];
-     $stmt1 = $db->query("SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) FROM events INNER JOIN event_attendance ON events.id = event_attendance.event_id INNER JOIN status ON event_attendance.status_id = status.id WHERE events.id IN (SELECT event_id FROM event_attendance WHERE status_id =  $get_status_id AND user_id = 1) GROUP BY events.id;
-     ")->fetchAll();
-     ?>
+    $get_status_id=$_GET['status_id'];
+    $stmt1 = $db->query("SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) FROM events INNER JOIN event_attendance ON events.id = event_attendance.event_id INNER JOIN status ON event_attendance.status_id = status.id WHERE events.id IN (SELECT event_id FROM event_attendance WHERE status_id =  $get_status_id AND user_id = 1) GROUP BY events.id;
+    ")->fetchAll();
+    ?>
       <div id="events-list">
       <div class="flex justify-between items-center mb-3">
         <h2 class="text-sm font-bold">一覧</h2>
@@ -114,7 +114,7 @@ if (isset($_GET['status_id'])) {
           </div>
           <div class="flex flex-col justify-between text-right">
             <div>
-             
+            
               <?php if ($get_status_id  == 0) : ?>
 
                 <p class="text-sm font-bold text-yellow-400">未回答</p>
@@ -135,92 +135,95 @@ if (isset($_GET['status_id'])) {
         </div>
       <?php endforeach; ?>
 
-      <?php
-      for ($i = 1; $i <= $max_page; $i++) { // 最大ページ数分リンクを作成
-        if ($i == $now) { // 現在表示中のページ数の場合はリンクを貼らない
-          echo $now . '　';
+      <div class = "pager-num">
+        <?php for ($i = 1; $i <= $max_page; $i++) { ?><!--  最大ページ数分リンクを作成 -->
+          <?php if ($i == $now) {?> <!-- 現在表示中のページ数の場合はリンクを貼らない -->
+            <span class="bule_word page-number" ><?php echo $now;?></span>
+            <?php
+          } else { ?>
+          <?php echo '<a class="page-number"  href="/?page_id=' . $i . '&status_id=' . $get_status_id . '">' . $i . '</a>';
+          }
+        } ?>
+      </div>
+
+<?php } else { ?>
+        <div id="events-list">
+              <div class="flex justify-between items-center mb-3">
+                <h2 class="text-sm font-bold">一覧</h2>
+              </div>
+        <!-- ページング実装 -->
+        <?php
+        define('MAX', '10'); // 1ページの記事の表示数定義
+
+
+        $All_events_number_sql = 'SELECT count(*)FROM events'; // トータルデータ件数
+        $All_events_number = $db->query($All_events_number_sql)->fetch(PDO::FETCH_COLUMN); // イベントデータを配列に入れる
+
+        $All_events = "SELECT * FROM events  INNER JOIN event_attendance ON events.id = event_attendance.event_id WHERE event_attendance.user_id = $user_id ;" ; // イベントデータを引っ張る
+        $event_contents = $db->query($All_events)->fetchAll(); // イベントデータを配列に入れる
+
+        // $events_num = count($All_events); // トータルデータ件数
+        $max_page = ceil($All_events_number / MAX); // トータルページ数※floorは小数点をあげる関数
+
+        if (!isset($_GET['page_id'])) { // $_GET['page_id'] はURLに渡された現在のページ数
+          $now = 1; // 設定されてない場合は1ページ目にする
         } else {
-          echo '<a href="/?page_id=' . $i . '&status_id=' . $get_status_id . '")>' . $i . '</a>';
+          $now = $_GET['page_id'];
         }
-      }
 
-}else{?>
-  <div id="events-list">
-        <div class="flex justify-between items-center mb-3">
-          <h2 class="text-sm font-bold">一覧</h2>
+        $start_no = ($now - 1) * MAX; // 配列の何番目から取得すればよいか
+
+        // array_sliceは、配列の何番目($start_no)から何番目(MAX)まで切り取る関数
+        $disp_data = array_slice($event_contents, $start_no, MAX, true);
+        ?>
+        <?php foreach ($disp_data as $event) : ?>
+          <?php
+          $start_date = strtotime($event['start_at']);
+          $end_date = strtotime($event['end_at']);
+          $day_of_week = get_day_of_week(date("w", $start_date));
+          ?>
+          <div class="modal-open bg-white mb-3 p-4 flex justify-between rounded-md shadow-md cursor-pointer" id="event-<?php echo $event['id']; ?>">
+            <div>
+              <h3 class="font-bold text-lg mb-2"><?php echo $event['name'] ?></h3>
+              <p><?php echo date("Y年m月d日（${day_of_week}）", $start_date); ?></p>
+              <p class="text-xs text-gray-600">
+                <?php echo date("H:i", $start_date) . "~" . date("H:i", $end_date); ?>
+              </p>
+            </div>
+            <div class="flex flex-col justify-between text-right">
+              <div>
+                <?php if ($event['status_id'] == 0) : ?>
+
+                  <p class="text-sm font-bold text-yellow-400">未回答</p>
+                  <p class="text-xs text-yellow-400">期限 <?php echo date("m月d日", strtotime('-3 day', $end_date)); ?></p>
+
+                <?php elseif ($event['status_id']  == 2) : ?>
+
+                  <p class="text-sm font-bold text-gray-300">不参加</p>
+
+                <?php else : ?>
+
+                  <p class="text-sm font-bold text-green-400">参加</p>
+
+                <?php endif; ?>
+              </div>
+              <p class="text-sm"><span class="text-xl"><?php echo $event['user_id']; ?></span>人参加 ></p>
+            </div>
+          </div>
+        <?php endforeach; ?>
+
+        <div class = "pager-num">
+        <?php
+        for ($i = 1; $i <= $max_page; $i++) { // 最大ページ数分リンクを作成
+          if ($i == $now) { ?>
+                <span class="bule_word page-number" ><?php echo $now; ?></span>
+            <?php } else {
+              echo '<a class="page-number" href="/?page_id=' . $i . '")>' . $i . '</a>';?> 
+          <?php }
+        } ?>
         </div>
-  <!-- ページング実装 -->
-  <?php
-  define('MAX', '10'); // 1ページの記事の表示数定義
 
-
-  $All_events_number_sql = 'SELECT count(*)FROM events'; // トータルデータ件数
-  $All_events_number = $db->query($All_events_number_sql)->fetch(PDO::FETCH_COLUMN); // イベントデータを配列に入れる
-
-  $All_events = "SELECT * FROM events  INNER JOIN event_attendance ON events.id = event_attendance.event_id WHERE event_attendance.user_id = $user_id ;" ; // イベントデータを引っ張る
-  $event_contents = $db->query($All_events)->fetchAll(); // イベントデータを配列に入れる
-
-  // $events_num = count($All_events); // トータルデータ件数
-  $max_page = ceil($All_events_number / MAX); // トータルページ数※floorは小数点をあげる関数
-
-  if (!isset($_GET['page_id'])) { // $_GET['page_id'] はURLに渡された現在のページ数
-    $now = 1; // 設定されてない場合は1ページ目にする
-  } else {
-    $now = $_GET['page_id'];
-  }
-
-  $start_no = ($now - 1) * MAX; // 配列の何番目から取得すればよいか
-
-  // array_sliceは、配列の何番目($start_no)から何番目(MAX)まで切り取る関数
-  $disp_data = array_slice($event_contents, $start_no, MAX, true);
-  ?>
-  <?php foreach ($disp_data as $event) : ?>
-    <?php
-    $start_date = strtotime($event['start_at']);
-    $end_date = strtotime($event['end_at']);
-    $day_of_week = get_day_of_week(date("w", $start_date));
-    ?>
-    <div class="modal-open bg-white mb-3 p-4 flex justify-between rounded-md shadow-md cursor-pointer" id="event-<?php echo $event['id']; ?>">
-      <div>
-        <h3 class="font-bold text-lg mb-2"><?php echo $event['name'] ?></h3>
-        <p><?php echo date("Y年m月d日（${day_of_week}）", $start_date); ?></p>
-        <p class="text-xs text-gray-600">
-          <?php echo date("H:i", $start_date) . "~" . date("H:i", $end_date); ?>
-        </p>
-      </div>
-      <div class="flex flex-col justify-between text-right">
-        <div>
-          <?php if ($event['status_id'] == 0) : ?>
-
-            <p class="text-sm font-bold text-yellow-400">未回答</p>
-            <p class="text-xs text-yellow-400">期限 <?php echo date("m月d日", strtotime('-3 day', $end_date)); ?></p>
-
-          <?php elseif ($event['status_id']  == 2) : ?>
-
-            <p class="text-sm font-bold text-gray-300">不参加</p>
-
-          <?php else : ?>
-
-            <p class="text-sm font-bold text-green-400">参加</p>
-
-          <?php endif; ?>
-        </div>
-        <p class="text-sm"><span class="text-xl"><?php echo $event['user_id']; ?></span>人参加 ></p>
-      </div>
-    </div>
-  <?php endforeach; ?>
-
-  <?php
-  for ($i = 1; $i <= $max_page; $i++) { // 最大ページ数分リンクを作成
-    if ($i == $now) { // 現在表示中のページ数の場合はリンクを貼らない
-      echo $now . '　';
-    } else {
-      echo '<a href="/?page_id=' . $i . '")>' . $i . '</a>';
-    }
-  }
-
-}
-?>
+     <?php } ?>
 
      
         
