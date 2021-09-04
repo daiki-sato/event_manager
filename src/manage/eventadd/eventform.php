@@ -4,10 +4,11 @@
 
 <?php
 $id = $_GET['id'];
+echo  $id;
 ?>
 <?php if (isset($id)) { ?>
   <?php
-  $detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id WHERE events.id = $id";
+  $detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id WHERE events.id = $eventId";
   $detail_contents = $db->query($detail_contents_value)->fetch();
   ?>
 <?php } ?>
@@ -50,7 +51,7 @@ $id = $_GET['id'];
       <p class="sub">イベント詳細</p>
       <textarea class="event__add__form__event__detail" name="text" rows="7" cols="150"><?= $detail_contents["text"] ?></textarea>
       <input type="submit" value="送信" class="event__add__form__button w-full p-3 text-md text-white bg-blue-400 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-300">
-      <input type="hidden" value="<?= $id ?>" name="id">
+      <input type="hidden" value="<?= $eventId ?>" name="id">
     </form>
   </div>
   <?= $_POST['event_name'] ?>
@@ -58,3 +59,8 @@ $id = $_GET['id'];
 </body>
 
 </html>
+
+
+
+
+<?= $_GET['event_id'] ?>
