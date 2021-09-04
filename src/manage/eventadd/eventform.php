@@ -30,7 +30,7 @@ $id = $_GET['id'];
       <div class="h-full ">
         <img src="/img/header-logo.png" alt="" class="h-full">
       </div>
-      <div class="box1 ">
+      <div class="box1">
         <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventlist/index.php">イベント一覧</a></div>
         <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventadd/eventform.php">イベント追加</a></div>
         <div class="box　px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/eventadd/eventform.php">ユーザー追加</a></div>
