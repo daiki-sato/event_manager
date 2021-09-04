@@ -39,7 +39,7 @@ $id = $_GET['id'];
   </header>
   <main class="bg-gray-100 h-screen">
     <div class="form ">
-      　　<h2 class="title">新規イベント追加</h2>
+      <h2 class="title">新規イベント追加</h2>
       <form class="event__add__form bg-gray-100 h-screen" action="/manage/eventadd/eventadd.php" method="post">
         <p class="sub">イベント名</p>
         <input class="event__add__form__event__place event__add__form__item" type="textarea" name="name" value="<?= $detail_contents['name'] ?>">

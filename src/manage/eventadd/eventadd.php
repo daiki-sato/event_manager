@@ -17,6 +17,11 @@ if ($_POST['id']) {
   $eventId = $_POST['id'];
 } else {
   $eventId = $db->lastInsertId();
+  $sql = "INSERT INTO `event_attendance`( `event_id`, `user_id`,status_id) 
+  SELECT :id , users.id,0 FROM users";
+  $stmt = $db->prepare($sql);
+  $params = array(':id' => $eventId);
+  $stmt->execute($params);
 }
 
 $sql = "INSERT INTO event_details ( id , event_id , text )
