@@ -26,12 +26,12 @@
 
 .event__add__form{
   display: flex;
-    flex-direction: column;
-    width: 60%;
-    margin: 0 auto;
-    font-size: 18px;
-    color: #000000;
-    font-weight: bold;   
+  flex-direction: column;
+  width: 60%;
+  margin: 0 auto;
+  font-size: 18px;
+  color: #000000;
+  font-weight: bold;   
 }
 
 .event__add__form__event__place{
@@ -47,7 +47,7 @@
 }
 
 .event__add__form__event__detail{
-    background-color: #FFFFFF;
+  background-color: #FFFFFF;
 }
 
 .event__add__form__button{
