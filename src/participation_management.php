@@ -21,3 +21,7 @@ if (isset($statusId_data)) {
   // 挿入する値が入った変数をexecuteにセットしてSQLを実行
   $stmt->execute($params);
 }
+
+$url = "http://".$_SERVER['HTTP_HOST'].'/';
+header("Location: $url");
+exit;
