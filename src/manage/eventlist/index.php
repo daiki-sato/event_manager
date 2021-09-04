@@ -136,7 +136,7 @@ for($i = 1; $i <= $max_page; $i++){ // 最大ページ数分リンクを作成
     </div>
   </div>
 
-  <script src="/js/main.js"></script>
+  <script src="/js/index.js"></script>
 </body>
 
 </html>
