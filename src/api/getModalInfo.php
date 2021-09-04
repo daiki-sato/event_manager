@@ -11,8 +11,12 @@ if (isset($_GET['eventId'])) {
     $stmt->execute(array($eventId));
     $event = $stmt->fetch();
 
-    $stmt = $db->query("SELECT status_id  FROM event_attendance WHERE user_id = $userId AND event_id = $eventId");
-    $status_id = $stmt->fetch(PDO::FETCH_COLUMN);
+    $stmt = $db->prepare('SELECT text  FROM event_details  WHERE event_details.event_id = ? ');
+    $stmt->execute(array($eventId));
+    $event_detail = $stmt->fetch();
+
+    $stmt = $db->query("SELECT status_id , status.name  FROM event_attendance INNER JOIN status ON event_attendance.status_id = status.id WHERE  event_attendance.user_id = $userId AND  event_attendance.event_id = $eventId");
+    $status_id = $stmt->fetch();
     
     $start_date = strtotime($event['start_at']);
     $end_date = strtotime($event['end_at']);
@@ -33,7 +37,9 @@ if (isset($_GET['eventId'])) {
       'total_participants' => $event['total_participants'],
       'message' => $eventMessage,
       'status' => $status,
-      'status_id' => $status_id,
+      'status_id' => $status_id["status_id"],
+      'status' => $status_id["name"],
+      'event_detail' => $event_detail["text"],
       'deadline' => date("m月d日", strtotime('-3 day', $end_date)),
     ];
     
