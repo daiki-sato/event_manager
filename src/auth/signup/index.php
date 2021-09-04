@@ -42,10 +42,8 @@ if (isset($_SESSION['ID'])) {
                 <input name="email" type="email" placeholder="メールアドレス" class="w-full p-4 text-sm mb-3">
                 <label for="password">password</label>
                 <input name="password" type="password" placeholder="パスワード" class="w-full p-4 text-sm mb-3">
-                <label class="inline-block mb-6">
-                    <input type="checkbox" checked>
-                    <span class="text-sm">ログイン状態を保持する</span>
-                </label>
+                <label for="password">githubのID(ない場合は何も書かない)</label>
+                <input name="github_id"  placeholder="パスワード" class="w-full p-4 text-sm mb-3">
                 <input type="submit" value="サインアップ" class="cursor-pointer w-full p-3 text-md text-white bg-blue-400 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-300">
             </form>
             <div class="text-center text-xs text-gray-400 mt-6">

@@ -13,6 +13,13 @@ $body = <<<EOT
 http://localhost/auth/ressetpassword/?pass=${pass}
 EOT;
 include($_SERVER['DOCUMENT_ROOT'] . "/dbconnect.php");
+$stmt = $db->query("SELECT id FROM users WHERE `email` = \"$to\"")->fetch();
+if(!$stmt["id"]){
+    echo "そのメールアドレスは登録されていません";
+    echo '<a href="/auth/login";>loginページへ戻る</a>';
+    exit;
+}
+
 $stmt = $db->query("UPDATE `users` SET `reset_pass`= \"$pass\" WHERE `email` = \"$to\"");
 mb_send_mail($to, $subject, $body, $headers);
 echo "メールを送信しました";

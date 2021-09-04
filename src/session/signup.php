@@ -10,18 +10,18 @@ if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password']
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 } else {
     echo 'パスワードは半角英数字をそれぞれ1文字以上含んだ8文字以上で設定してください。';
+    echo '<a href="/auth/signup">ユーザー作成ページへ戻る</a>';
     return false;
 }
 //登録処理
 try {
-    $sql = "INSERT INTO users ( name , password , email) VALUES (:name , :password , :email) ON DUPLICATE KEY 
+    $sql = "INSERT INTO users ( name , password , email , github_id) VALUES (:name , :password , :email , :github_id) ON DUPLICATE KEY 
     UPDATE password = :password , reset_pass = null";
     $stmt = $db->prepare($sql);
-    $params = array(':name' => $_POST["name"] , ':password' => $password , ':email' => $_POST["email"]);
+    $params = array(':name' => $_POST["name"] , ':password' => $password , ':email' => $_POST["email"] , ':github_id'=> $_POST["github_id"]);
     $stmt->execute($params);
     echo '登録完了';
-    echo '<a href="/auth/login">loginページへ戻る</a>';
+    echo '<a href="/auth/signup">ユーザー作成ページへ戻る</a>';
 } catch (\Exception $e) {
     echo '登録済みのemailです。';
 }
-?>
