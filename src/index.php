@@ -131,7 +131,7 @@ $user_id = $_SESSION["ID"];
                 <?php endswitch; ?>
               </div>
               <p class="text-sm"><span class="text-xl"><?=  $participants_number[$event['id']]["number"];?></span>人参加 ></p>
-              <?php echo($participants_number[$event['id']]["user_names"])?>
+              <?php echo nl2br($participants_number[$event['id']]["user_names"])?>
             </div>
           </div>
         <?php endforeach; ?>
