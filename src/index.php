@@ -114,12 +114,13 @@ if (isset($_GET['status_id'])) {
           </div>
           <div class="flex flex-col justify-between text-right">
             <div>
-              <?php if ($event['id'] % 3 === 1) : ?>
+             
+              <?php if ($get_status_id  == 0) : ?>
 
                 <p class="text-sm font-bold text-yellow-400">未回答</p>
                 <p class="text-xs text-yellow-400">期限 <?php echo date("m月d日", strtotime('-3 day', $end_date)); ?></p>
 
-              <?php elseif ($event['id'] % 3 === 2) : ?>
+              <?php elseif ($get_status_id  == 2) : ?>
 
                 <p class="text-sm font-bold text-gray-300">不参加</p>
 
@@ -129,7 +130,7 @@ if (isset($_GET['status_id'])) {
 
               <?php endif; ?>
             </div>
-            <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
+            <p class="text-sm"><span class="text-xl"><?php echo $event['count(event_attendance.id)']; ?></span>人参加 ></p>
           </div>
         </div>
       <?php endforeach; ?>
@@ -152,10 +153,11 @@ if (isset($_GET['status_id'])) {
   <?php
   define('MAX', '10'); // 1ページの記事の表示数定義
 
+
   $All_events_number_sql = 'SELECT count(*)FROM events'; // トータルデータ件数
   $All_events_number = $db->query($All_events_number_sql)->fetch(PDO::FETCH_COLUMN); // イベントデータを配列に入れる
 
-  $All_events = "SELECT*FROM events"; // イベントデータを引っ張る
+  $All_events = "SELECT * FROM events  INNER JOIN event_attendance ON events.id = event_attendance.event_id WHERE event_attendance.user_id = $user_id ;" ; // イベントデータを引っ張る
   $event_contents = $db->query($All_events)->fetchAll(); // イベントデータを配列に入れる
 
   // $events_num = count($All_events); // トータルデータ件数
@@ -188,12 +190,12 @@ if (isset($_GET['status_id'])) {
       </div>
       <div class="flex flex-col justify-between text-right">
         <div>
-          <?php if ($event['id'] % 3 === 1) : ?>
+          <?php if ($event['status_id'] == 0) : ?>
 
             <p class="text-sm font-bold text-yellow-400">未回答</p>
             <p class="text-xs text-yellow-400">期限 <?php echo date("m月d日", strtotime('-3 day', $end_date)); ?></p>
 
-          <?php elseif ($event['id'] % 3 === 2) : ?>
+          <?php elseif ($event['status_id']  == 2) : ?>
 
             <p class="text-sm font-bold text-gray-300">不参加</p>
 
@@ -203,7 +205,7 @@ if (isset($_GET['status_id'])) {
 
           <?php endif; ?>
         </div>
-        <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
+        <p class="text-sm"><span class="text-xl"><?php echo $event['user_id']; ?></span>人参加 ></p>
       </div>
     </div>
   <?php endforeach; ?>
