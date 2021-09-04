@@ -1,9 +1,8 @@
 <?php
 $url = "https://hooks.slack.com/services/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";
 $message = [
-    'channel' => '#チャンネル名',
+    'channel' => '#ダークライ',
     'username' => 'System',
-    'icon_emoji' => ':eyes:',
     'text' => 'これはテストです<@U01C72Q45MJ>',
 ];
 
