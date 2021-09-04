@@ -42,90 +42,186 @@ $user_id=$_SESSION["ID"];
     <div class="w-full mx-auto p-5">
 
       <div id="filter" class="mb-8">
-        <h2 class="text-sm font-bold mb-3">フィルター</h2>
+        <h2 class="text-sm font-bold mb-3">フィルター</h2>       
+         <?php ?>
         <div class="flex">
-          <a href="" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-blue-600 text-white">全て</a>
-          <a href="" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white">参加</a>
-          <a href="" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white">不参加</a>
-          <a href="" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white">未回答</a>
+          <a href="/index.php/?page_id=1" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-blue-600 text-white">全て</a>
+          <a href="/index.php/?page_id=1&status_id=1" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white">参加</a>
+          <a href="/index.php/?page_id=1&status_id=2"  class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white">不参加</a>
+          <a href="/index.php/?page_id=1&status_id=0"  class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white">未回答</a>
         </div>
       </div>
 
+     <?php 
+    //  表示eventsとステータスの連結
+     $event_content_value = "SELECT * FROM events  INNER JOIN event_attendance ON events.id = event_attendance.id" ;
+     $event_contents = $db->query($event_content_value)->fetchAll();
+
+    //全てをstatus_id=Null,参加status_id=1,不参加status_id=2,未回答status_id=0で場合分け（ステータスによって表示変更）
+if (isset($_GET['status_id'])) {
+     $get_status_id=$_GET['status_id'];
+     $stmt1 = $db->query("SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) FROM events INNER JOIN event_attendance ON events.id = event_attendance.event_id INNER JOIN status ON event_attendance.status_id = status.id WHERE events.id IN (SELECT event_id FROM event_attendance WHERE status_id =  $get_status_id AND user_id = 1) GROUP BY events.id;
+     ")->fetchAll();
+     ?>
       <div id="events-list">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-sm font-bold">一覧</h2>
+      </div>
+      <!-- ページング実装 --> 
+      <?php
+      define('MAX', '10'); // 1ページの記事の表示数定義
+
+      
+      $All_events_number_sql = 'SELECT count(*)FROM events'; // トータルデータ件数
+      $All_events_number_sql = count($stmt1); // 選ばれたトータルデータ件数
+      $Selected_events_number = $All_events_number_sql; // 選ばれたイベントデータを配列の数
+      
+
+      $Selected_All_events = "SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) FROM events
+      INNER JOIN event_attendance ON events.id = event_attendance.event_id
+      INNER JOIN status ON event_attendance.status_id = status.id
+      WHERE events.id IN (SELECT event_id FROM event_attendance WHERE status_id= $get_status_id  AND user_id = 1)
+      GROUP BY events.id"; // 選ばれたイベントデータを引っ張る
+      $event_contents = $db->query($Selected_All_events)->fetchAll(); // イベントデータを配列に入れる
+
+      // $events_num = count($All_events); // トータルデータ件数
+      $max_page = ceil($Selected_events_number / MAX); // トータルページ数※ceilは小数点をあげる関数
+
+      if (!isset($_GET['page_id'])) { // $_GET['page_id'] はURLに渡された現在のページ数
+        $now = 1; // 設定されてない場合は1ページ目にする
+      } else {
+        $now = $_GET['page_id'];
+      }
+
+      $start_no = ($now - 1) * MAX; // 配列の何番目から取得すればよいか
+
+      // array_sliceは、配列の何番目($start_no)から何番目(MAX)まで切り取る関数
+      $disp_data = array_slice($event_contents, $start_no, MAX, true);
+      ?>
+      <?php foreach ($disp_data as $event) : ?>
+        <?php
+        $start_date = strtotime($event['start_at']);
+        $end_date = strtotime($event['end_at']);
+        $day_of_week = get_day_of_week(date("w", $start_date));
+        ?>
+        <div class="modal-open bg-white mb-3 p-4 flex justify-between rounded-md shadow-md cursor-pointer" id="event-<?php echo $event['id']; ?>">
+          <div>
+            <h3 class="font-bold text-lg mb-2"><?php echo $event['name'] ?></h3>
+            <p><?php echo date("Y年m月d日（${day_of_week}）", $start_date); ?></p>
+            <p class="text-xs text-gray-600">
+              <?php echo date("H:i", $start_date) . "~" . date("H:i", $end_date); ?>
+            </p>
+          </div>
+          <div class="flex flex-col justify-between text-right">
+            <div>
+              <?php if ($event['id'] % 3 === 1) : ?>
+
+                <p class="text-sm font-bold text-yellow-400">未回答</p>
+                <p class="text-xs text-yellow-400">期限 <?php echo date("m月d日", strtotime('-3 day', $end_date)); ?></p>
+
+              <?php elseif ($event['id'] % 3 === 2) : ?>
+
+                <p class="text-sm font-bold text-gray-300">不参加</p>
+
+              <?php else : ?>
+
+                <p class="text-sm font-bold text-green-400">参加</p>
+
+              <?php endif; ?>
+            </div>
+            <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
+          </div>
+        </div>
+      <?php endforeach; ?>
+
+      <?php
+      for ($i = 1; $i <= $max_page; $i++) { // 最大ページ数分リンクを作成
+        if ($i == $now) { // 現在表示中のページ数の場合はリンクを貼らない
+          echo $now . '　';
+        } else {
+          echo '<a href="/?page_id=' . $i . '&status_id=' . $get_status_id . '")>' . $i . '</a>';
+        }
+      }
+
+}else{?>
+  <div id="events-list">
         <div class="flex justify-between items-center mb-3">
           <h2 class="text-sm font-bold">一覧</h2>
         </div>
+  <!-- ページング実装 -->
+  <?php
+  define('MAX', '10'); // 1ページの記事の表示数定義
 
-        <!-- ページング実装 -->
-        <?php
-        define('MAX', '10'); // 1ページの記事の表示数定義
+  $All_events_number_sql = 'SELECT count(*)FROM events'; // トータルデータ件数
+  $All_events_number = $db->query($All_events_number_sql)->fetch(PDO::FETCH_COLUMN); // イベントデータを配列に入れる
 
-        $All_events_number_sql = 'SELECT count(*)FROM events'; // トータルデータ件数
-        $All_events_number = $db->query($All_events_number_sql)->fetch(PDO::FETCH_COLUMN); // イベントデータを配列に入れる
+  $All_events = "SELECT*FROM events"; // イベントデータを引っ張る
+  $event_contents = $db->query($All_events)->fetchAll(); // イベントデータを配列に入れる
 
-        $All_events = "SELECT*FROM events"; // イベントデータを引っ張る
-        $event_contents = $db->query($All_events)->fetchAll(); // イベントデータを配列に入れる
+  // $events_num = count($All_events); // トータルデータ件数
+  $max_page = ceil($All_events_number / MAX); // トータルページ数※floorは小数点をあげる関数
 
-        // $events_num = count($All_events); // トータルデータ件数
-        $max_page = ceil($All_events_number / MAX); // トータルページ数※floorは小数点をあげる関数
+  if (!isset($_GET['page_id'])) { // $_GET['page_id'] はURLに渡された現在のページ数
+    $now = 1; // 設定されてない場合は1ページ目にする
+  } else {
+    $now = $_GET['page_id'];
+  }
 
-        if (!isset($_GET['page_id'])) { // $_GET['page_id'] はURLに渡された現在のページ数
-          $now = 1; // 設定されてない場合は1ページ目にする
-        } else {
-          $now = $_GET['page_id'];
-        }
+  $start_no = ($now - 1) * MAX; // 配列の何番目から取得すればよいか
 
-        $start_no = ($now - 1) * MAX; // 配列の何番目から取得すればよいか
+  // array_sliceは、配列の何番目($start_no)から何番目(MAX)まで切り取る関数
+  $disp_data = array_slice($event_contents, $start_no, MAX, true);
+  ?>
+  <?php foreach ($disp_data as $event) : ?>
+    <?php
+    $start_date = strtotime($event['start_at']);
+    $end_date = strtotime($event['end_at']);
+    $day_of_week = get_day_of_week(date("w", $start_date));
+    ?>
+    <div class="modal-open bg-white mb-3 p-4 flex justify-between rounded-md shadow-md cursor-pointer" id="event-<?php echo $event['id']; ?>">
+      <div>
+        <h3 class="font-bold text-lg mb-2"><?php echo $event['name'] ?></h3>
+        <p><?php echo date("Y年m月d日（${day_of_week}）", $start_date); ?></p>
+        <p class="text-xs text-gray-600">
+          <?php echo date("H:i", $start_date) . "~" . date("H:i", $end_date); ?>
+        </p>
+      </div>
+      <div class="flex flex-col justify-between text-right">
+        <div>
+          <?php if ($event['id'] % 3 === 1) : ?>
 
-        // array_sliceは、配列の何番目($start_no)から何番目(MAX)まで切り取る関数
-        $disp_data = array_slice($event_contents, $start_no, MAX, true);
-        ?>
-        <?php foreach ($disp_data as $event) : ?>
-          <?php
-          $start_date = strtotime($event['start_at']);
-          $end_date = strtotime($event['end_at']);
-          $day_of_week = get_day_of_week(date("w", $start_date));
-          ?>
-          <div class="modal-open bg-white mb-3 p-4 flex justify-between rounded-md shadow-md cursor-pointer" id="event-<?php echo $event['id']; ?>">
-            <div>
-              <h3 class="font-bold text-lg mb-2"><?php echo $event['name'] ?></h3>
-              <p><?php echo date("Y年m月d日（${day_of_week}）", $start_date); ?></p>
-              <p class="text-xs text-gray-600">
-                <?php echo date("H:i", $start_date) . "~" . date("H:i", $end_date); ?>
-              </p>
-            </div>
-            <div class="flex flex-col justify-between text-right">
-              <div>
-                <?php if ($event['id'] % 3 === 1) : ?>
+            <p class="text-sm font-bold text-yellow-400">未回答</p>
+            <p class="text-xs text-yellow-400">期限 <?php echo date("m月d日", strtotime('-3 day', $end_date)); ?></p>
 
-                  <p class="text-sm font-bold text-yellow-400">未回答</p>
-                  <p class="text-xs text-yellow-400">期限 <?php echo date("m月d日", strtotime('-3 day', $end_date)); ?></p>
+          <?php elseif ($event['id'] % 3 === 2) : ?>
 
-                <?php elseif ($event['id'] % 3 === 2) : ?>
+            <p class="text-sm font-bold text-gray-300">不参加</p>
 
-                  <p class="text-sm font-bold text-gray-300">不参加</p>
+          <?php else : ?>
 
-                <?php else : ?>
+            <p class="text-sm font-bold text-green-400">参加</p>
 
-                  <p class="text-sm font-bold text-green-400">参加</p>
+          <?php endif; ?>
+        </div>
+        <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
+      </div>
+    </div>
+  <?php endforeach; ?>
 
-                <?php endif; ?>
-              </div>
-              <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
-            </div>
-          </div>
-        <?php endforeach; ?>
+  <?php
+  for ($i = 1; $i <= $max_page; $i++) { // 最大ページ数分リンクを作成
+    if ($i == $now) { // 現在表示中のページ数の場合はリンクを貼らない
+      echo $now . '　';
+    } else {
+      echo '<a href="/?page_id=' . $i . '")>' . $i . '</a>';
+    }
+  }
 
-        <?php
-        for ($i = 1; $i <= $max_page; $i++) { // 最大ページ数分リンクを作成
-          if ($i == $now) { // 現在表示中のページ数の場合はリンクを貼らない
-            echo $now . '　';
-          } else {
-            echo '<a href="/?page_id=' . $i . '")>' . $i . '</a>';
-          }
-        }
+}
+?>
 
-        ?>
+     
+        
       </div>
     </div>
   </main>
