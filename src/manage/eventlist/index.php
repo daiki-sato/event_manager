@@ -113,17 +113,13 @@ function get_day_of_week($w)
             </div>
           </div>
           <form action="/manage/eventadd/eventform.php?event_id=<?= $event["id"] ?>" method="post">
-            <!-- <div class="flex mt-5"> -->
             <input type='submit' value="変更する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold">
             <input type="hidden" name="id" value="<?= $event['id'] ?>">
-            <!-- <input type="hidden" name="event_id" value="<//?= $genre_content['id'] ?>"> -->
-            <!-- </div> -->
           </form>
-          <!-- <form action="/manage/eventadd/eventform.php"> -->
-          <!-- <div class="flex mt-5"> -->
-          <!-- <input type='submit' name="status_id" value="削除する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold"> -->
-          <!-- </div> -->
-          <!-- </form> -->
+          <form action="/manage/eventlist/delete.php">
+            <input type='submit' value="削除する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold">
+            <input type="hidden" name="delete"  value="<?= $event['id'] ?>">
+          </form>
       </div>
     <?php endforeach; ?>
 

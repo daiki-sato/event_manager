@@ -17,7 +17,7 @@ $params = array(':id' => (int) $_POST["id"] , ':name' => $_POST["name"], ':start
 
 $stmt->execute($params);
 
-
+// イベントの詳細追加
 if ($_POST['id']) {
   $eventId = $_POST['id'];
 } else {
