@@ -53,7 +53,6 @@ async function openModal(eventId) {
                 <button type='submit' name="status_id" value="2" class="participation flex-1 py-2 mx-3 rounded-3xl text-white text-lg font-bold" id="modal__nonParticipation">参加しない</button>
                 <input type="hidden" name="user_id" value="1">
                 <input type="hidden" name="event_id" value="${eventId}">
-                // リダイレクトで戻す
                 </div>
             </form>
             `
