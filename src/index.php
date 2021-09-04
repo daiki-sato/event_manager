@@ -23,6 +23,7 @@ $user_id=$_SESSION["ID"];
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
   <title>Schedule | POSSE</title>
 </head>
 
@@ -40,7 +41,6 @@ $user_id=$_SESSION["ID"];
 
   <main class="bg-gray-100">
     <div class="w-full mx-auto p-5">
-
       <div id="filter" class="mb-8">
         <h2 class="text-sm font-bold mb-3">フィルター</h2>
         <div class="flex">
@@ -124,7 +124,6 @@ $user_id=$_SESSION["ID"];
             echo '<a href="/?page_id=' . $i . '")>' . $i . '</a>';
           }
         }
-
         ?>
       </div>
     </div>
