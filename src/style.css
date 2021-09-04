@@ -11,14 +11,15 @@
     background-color: rgba(209, 213, 219, var(--tw-bg-opacity));
 }
 .pager-num{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-display: flex;
-justify-content: center;
-align-items: center;
-}
 .bule_word{
-    color: blue;
+   color: blue;
 }
+
 .page-number{
     margin-left: 10px;
     margin-right: 10px;
