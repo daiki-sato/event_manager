@@ -134,7 +134,6 @@ function get_day_of_week($w)
           echo '<a class = "page-number" href="/manage/eventlist/index.php?page_id=' . $i . '")>' . $i . '</a>'; ?>
       <?php }
       } ?>
-      ?>
     </div>
 
 
