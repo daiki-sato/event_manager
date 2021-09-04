@@ -1,18 +1,23 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . "/dbconnect.php");
 
+echo $_POST["id"];
+echo $_POST["name"];
+echo $_POST["start_at"];
+echo $_POST["end_at"];
 // eventsに追加
 $sql = "INSERT INTO events (id , name , start_at , end_at) 
           VALUES (:id , :name , :start_at , :end_at)
-          ON DUPLICATE KEY UPDATE updated_at = now()";
-
+          ON DUPLICATE KEY UPDATE 
+          name = :name , start_at = :start_at , end_at = :end_at";
 
 $stmt = $db->prepare($sql);
 
-$params = array(':id' => (int)$_POST["id"], ':name' => $_POST["name"], ':start_at' => $_POST["start_at"], ':end_at' => $_POST["end_at"]);
+$params = array(':id' => (int) $_POST["id"] , ':name' => $_POST["name"], ':start_at' => $_POST["start_at"], ':end_at' => $_POST["end_at"]);
 
 $stmt->execute($params);
 
+// イベントの詳細追加
 if ($_POST['id']) {
   $eventId = $_POST['id'];
 } else {
@@ -25,7 +30,8 @@ if ($_POST['id']) {
 }
 
 $sql = "INSERT INTO event_details ( id , event_id , text )
-        VALUES (:id , :event_id , :text )";
+        VALUES (:id , :event_id , :text )
+        ON DUPLICATE KEY UPDATE text = :text";
 
 $stmt = $db->prepare($sql);
 
