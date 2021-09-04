@@ -23,5 +23,5 @@ try {
     echo '登録完了';
     echo '<a href="/auth/signup">ユーザー作成ページへ戻る</a>';
 } catch (\Exception $e) {
-    echo '登録済みのemailです。';
+    echo 'エラーまたは登録済みのemailです。';
 }
