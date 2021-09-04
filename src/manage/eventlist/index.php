@@ -37,8 +37,8 @@ function get_day_of_week($w)
     </div>
   </header>
 
-  <main class="bg-gray-100">
-    <div class="w-full mx-auto p-5">
+  <main class="bg-gray-100 px-5 h-screen">
+    <div class="w-full mx-auto py-5">
       <div id="events-list">
         <div class="flex justify-between items-center mb-3">
           <h2 class="text-sm font-bold">一覧</h2>
@@ -112,14 +112,16 @@ function get_day_of_week($w)
               <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
             </div>
           </div>
-          <form action="/manage/eventadd/eventform.php?event_id=<?= $event["id"] ?>" method="post">
-            <input type='submit' value="変更する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold">
-            <input type="hidden" name="id" value="<?= $event['id'] ?>">
-          </form>
-          <form action="/manage/eventlist/delete.php">
-            <input type='submit' value="削除する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold">
-            <input type="hidden" name="delete"  value="<?= $event['id'] ?>">
-          </form>
+          <div class="edit__buttons">
+            <form class="edit__buttons__form" action="/manage/eventadd/eventform.php?event_id=<?= $event["id"] ?>" method="post">
+              <input type='submit' value="変更する" class="flex-1 bg-blue-500 py-2 rounded-3xl text-white text-lg font-bold edit__buttons__form__input">
+              <input type="hidden" name="id" value="<?= $event['id'] ?>">
+            </form>
+            <form class="edit__buttons__form" action="/manage/eventlist/delete.php">
+              <input type='submit' value="削除する" class="flex-1 bg-blue-500 py-2 rounded-3xl text-white text-lg font-bold edit__buttons__form__input">
+              <input type="hidden" name="delete"  value="<?= $event['id'] ?>">
+            </form>
+          </div>
       </div>
     <?php endforeach; ?>
 
