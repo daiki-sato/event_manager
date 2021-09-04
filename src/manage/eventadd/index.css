@@ -59,3 +59,8 @@
 .event__add__form__item {
     padding: 1% 1%;
 }
+
+.header__add_user__button {
+    padding-right: 10px;
+    padding-left: 10px;
+}

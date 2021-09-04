@@ -32,7 +32,7 @@ function get_day_of_week($w)
       <div class="box1">
         <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventlist/index.php">イベント一覧</a></div>
         <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventadd/eventform.php">イベント追加</a></div>
-        <div class="box　px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/auth/signup">ユーザー追加</a></div>
+        <div class="box py-2 header__add_user__button text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/auth/signup">ユーザー追加</a></div>
       </div>
     </div>
   </header>
@@ -56,8 +56,6 @@ function get_day_of_week($w)
         $All_events = "SELECT*FROM events"; // イベントデータを引っ張る
         $event_contents = $db->query($All_events)->fetchAll(); // イベントデータを配列に入れる
 
-
-        // TODO:user_id修正
         // events と　 event_details結合
         $detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id";
         $detail_contents = $db->query($detail_contents_value)->fetch();
