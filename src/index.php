@@ -31,7 +31,7 @@ $user_id=$_SESSION["ID"];
   <header class="h-16">
     <div class="flex justify-between items-center w-full h-full mx-auto pl-2 pr-5">
       <div class="h-full">
-        <img src="img/header-logo.png" alt="" class="h-full">
+        <img src="/img/header-logo.png" alt="" class="h-full">
       </div>
       <div>
         <a href="/session/logout.php" class="text-white bg-blue-400 px-4 py-2 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-200">ログアウト</a>
