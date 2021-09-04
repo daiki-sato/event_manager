@@ -8,7 +8,7 @@ USE posse;
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: mysql
--- 生成日時: 2021 年 9 月 04 日 05:04
+-- 生成日時: 2021 年 9 月 04 日 05:17
 -- サーバのバージョン： 8.0.23
 -- PHP のバージョン: 7.4.13
 
@@ -213,6 +213,7 @@ CREATE TABLE `users` (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `admin` int DEFAULT NULL,
   `git_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slack_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `reset_pass` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -220,11 +221,11 @@ CREATE TABLE `users` (
 -- テーブルのデータのダンプ `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `name`, `admin`, `git_id`, `reset_pass`) VALUES
-(1, 'test@com', '$2y$10$qAUTKgOxdh73V6QjFfz4Be.Z1qTG71.YJiknJAAaOeypMmMuDOYy6', 'SHUTO', 1, '', NULL),
-(2, 'test2@com', '$2y$10$FEoRodC7xIfg6CLJPjT4fe6z13j7rRdndYs0JHG1RHYRzjcr1Xtl6', 'DAIKI', 0, '', NULL),
-(3, 'test3@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'TAROU', 0, '', ''),
-(4, 'test4@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'MORIPA', 1, '', '');
+INSERT INTO `users` (`id`, `email`, `password`, `name`, `admin`, `git_id`, `slack_id`, `reset_pass`) VALUES
+(1, 'test@com', '$2y$10$qAUTKgOxdh73V6QjFfz4Be.Z1qTG71.YJiknJAAaOeypMmMuDOYy6', 'SHUTO', 1, '', 'U01C72Q45MJ', NULL),
+(2, 'test2@com', '$2y$10$FEoRodC7xIfg6CLJPjT4fe6z13j7rRdndYs0JHG1RHYRzjcr1Xtl6', 'DAIKI', 0, '', 'U01H96KU21K', NULL),
+(3, 'test3@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'TAROU', 0, '', 'U015H9Q2WTZ', ''),
+(4, 'test4@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'MORIPA', 1, '', 'U015H9Q2WTZ', '');
 
 --
 -- ダンプしたテーブルのインデックス
