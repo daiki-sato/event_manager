@@ -3,7 +3,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/dbconnect.php");
 $stmt = $db->query('SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) AS total_participants FROM events LEFT JOIN event_attendance ON events.id = event_attendance.event_id WHERE start_at >= CURRENT_DATE() AND user_id=1 AND status_id=1 GROUP BY events.id ORDER BY start_at;');
 $events = $stmt->fetchAll();
 
-function get_day_of_week ($w) {
+function get_day_of_week($w)
+{
   $day_of_week_list = ['日', '月', '火', '水', '木', '金', '土'];
   return $day_of_week_list["$w"];
 }
@@ -26,7 +27,7 @@ function get_day_of_week ($w) {
   <header class="h-16">
     <div class="flex justify-between items-center w-full h-full mx-auto pl-2 pr-5">
       <div class="h-full">
-       <a href="/manage/eventlist/index.php"><img src="/img/header-logo.png" alt="posseロゴ" class="h-full"></a> 
+        <a href="/manage/eventlist/index.php"><img src="/img/header-logo.png" alt="posseロゴ" class="h-full"></a>
       </div>
       <div class="box1">
         <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventlist/index.php">イベント一覧</a></div>
@@ -43,84 +44,101 @@ function get_day_of_week ($w) {
           <h2 class="text-sm font-bold">一覧</h2>
         </div>
 
-       
+
         <!-- ページング実装 -->
         <?php
 
-define('MAX','10'); // 1ページの記事の表示数定義
+        define('MAX', '10'); // 1ページの記事の表示数定義
 
-$All_events_number_sql = 'SELECT count(*)FROM events';// トータルデータ件数
-$All_events_number = $db->query($All_events_number_sql)->fetch(PDO::FETCH_COLUMN);// イベントデータを配列に入れる
+        $All_events_number_sql = 'SELECT count(*)FROM events'; // トータルデータ件数
+        $All_events_number = $db->query($All_events_number_sql)->fetch(PDO::FETCH_COLUMN); // イベントデータを配列に入れる
 
-$All_events ="SELECT*FROM events";// イベントデータを引っ張る
-$event_contents = $db->query($All_events)->fetchAll();// イベントデータを配列に入れる
+        $All_events = "SELECT*FROM events"; // イベントデータを引っ張る
+        $event_contents = $db->query($All_events)->fetchAll(); // イベントデータを配列に入れる
 
 
-            
-// $events_num = count($All_events); // トータルデータ件数
-$max_page = ceil($All_events_number / MAX); // トータルページ数※floorは小数点をあげる関数
+        // TODO:user_id修正
+        // events と　 event_details結合
+        $detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id";
+        $detail_contents = $db->query($detail_contents_value)->fetch();
 
-if(!isset($_GET['page_id'])){ // $_GET['page_id'] はURLに渡された現在のページ数
-    $now = 1; // 設定されてない場合は1ページ目にする
-}else{
-    $now = $_GET['page_id'];
-}
- 
-$start_no = ($now - 1) * MAX; // 配列の何番目から取得すればよいか
- 
-// array_sliceは、配列の何番目($start_no)から何番目(MAX)まで切り取る関数
-$disp_data = array_slice($event_contents, $start_no, MAX, true);
-?> 
-  <?php foreach($disp_data as $event) : ?>
-    <?php
-    $start_date = strtotime($event['start_at']);
-    $end_date = strtotime($event['end_at']);
-    $day_of_week = get_day_of_week(date("w", $start_date));
-    ?>
-      <div class="modal-open bg-white mb-3 p-4 flex justify-between rounded-md shadow-md cursor-pointer" id="event-<?php echo $event['id']; ?>">
-        <div>
-          <h3 class="font-bold text-lg mb-2"><?php echo $event['name'] ?></h3>
-          <p><?php echo date("Y年m月d日（${day_of_week}）", $start_date); ?></p>
-          <p class="text-xs text-gray-600">
-            <?php echo date("H:i", $start_date) . "~" . date("H:i", $end_date); ?>
-          </p>
-        </div>
-        <div class="flex flex-col justify-between text-right">
-          <div>
-            <?php if ($event['id'] % 3 === 1) : ?>
-              <!--
+
+
+        // $events_num = count($All_events); // トータルデータ件数
+        $max_page = ceil($All_events_number / MAX); // トータルページ数※floorは小数点をあげる関数
+
+        if (!isset($_GET['page_id'])) { // $_GET['page_id'] はURLに渡された現在のページ数
+          $now = 1; // 設定されてない場合は1ページ目にする
+        } else {
+          $now = $_GET['page_id'];
+        }
+
+        $start_no = ($now - 1) * MAX; // 配列の何番目から取得すればよいか
+
+        // array_sliceは、配列の何番目($start_no)から何番目(MAX)まで切り取る関数
+        $disp_data = array_slice($event_contents, $start_no, MAX, true);
+        ?>
+        <?php foreach ($disp_data as $event) : ?>
+          <?php
+          $start_date = strtotime($event['start_at']);
+          $end_date = strtotime($event['end_at']);
+          $day_of_week = get_day_of_week(date("w", $start_date));
+          ?>
+          <div class="modal-open bg-white mb-3 p-4 flex justify-between rounded-md shadow-md cursor-pointer" id="event-<?php echo $event['id']; ?>">
+            <div>
+              <h3 class="font-bold text-lg mb-2"><?php echo $event['name'] ?></h3>
+              <p><?php echo date("Y年m月d日（${day_of_week}）", $start_date); ?></p>
+              <p class="text-xs text-gray-600">
+                <?php echo date("H:i", $start_date) . "~" . date("H:i", $end_date); ?>
+              </p>
+            </div>
+            <div class="flex flex-col justify-between text-right">
+              <div>
+                <?php if ($event['id'] % 3 === 1) : ?>
+                  <!--
               <p class="text-sm font-bold text-yellow-400">未回答</p>
               <p class="text-xs text-yellow-400">期限 <?php echo date("m月d日", strtotime('-3 day', $end_date)); ?></p>
               -->
-            <?php elseif ($event['id'] % 3 === 2) : ?>
-              <!-- 
+                <?php elseif ($event['id'] % 3 === 2) : ?>
+                  <!-- 
               <p class="text-sm font-bold text-gray-300">不参加</p>
               -->
-            <?php else : ?>
-              <!-- 
+                <?php else : ?>
+                  <!-- 
               <p class="text-sm font-bold text-green-400">参加</p>
               -->
-            <?php endif; ?>
+                <?php endif; ?>
+              </div>
+              <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
+            </div>
           </div>
-          <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
-        </div>
+          <form action="/manage/eventadd/eventform.php?event_id=<?= $event["id"] ?>" method="post">
+            <input type='submit' value="変更する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold">
+            <input type="hidden" name="id" value="<?= $event['id'] ?>">
+          </form>
+          <form action="/manage/eventlist/delete.php">
+            <input type='submit' value="削除する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold">
+            <input type="hidden" name="delete"  value="<?= $event['id'] ?>">
+          </form>
       </div>
     <?php endforeach; ?>
-        <div class = "pager-num">
+
+    <div class="pager-num">
       <?php
-      for($i = 1; $i <= $max_page; $i++){ // 最大ページ数分リンクを作成
-          if ($i == $now) {?>
-            <span class = "blue-word page-number"> <?php echo $now. '　'; ?> </span>
+      for ($i = 1; $i <= $max_page; $i++) { // 最大ページ数分リンクを作成
+        if ($i == $now) { ?>
+          <span class="blue-word page-number"> <?php echo $now . '　'; ?> </span>
         <?php  } else {
-              echo '<a class = "page-number" href="/manage/eventlist/index.php?page_id='. $i. '")>'. $i. '</a>';?>
-        <?php }
-      }?>
-      </div>
-  
+          echo '<a class = "page-number" href="/manage/eventlist/index.php?page_id=' . $i . '")>' . $i . '</a>'; ?>
+      <?php }
+      } ?>
+      ?>
+    </div>
+
 
   </main>
 
-  <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+  <!-- <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
     <div class="modal-overlay absolute w-full h-full bg-black opacity-80"></div>
 
     <div class="modal-container absolute bottom-0 bg-white w-screen h-4/5 rounded-t-3xl shadow-lg z-50">
@@ -135,9 +153,9 @@ $disp_data = array_slice($event_contents, $start_no, MAX, true);
 
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <script src="/js/main.js"></script>
+  <!-- <script src="/js/index.js"></script> -->
 </body>
 
 </html>
