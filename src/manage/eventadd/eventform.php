@@ -34,13 +34,13 @@ echo  $id;
       <div class="box1">
         <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventlist/index.php">イベント一覧</a></div>
         <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventadd/eventform.php">イベント追加</a></div>
-        <div class="box　px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/eventadd/eventform.php">ユーザー追加</a></div>
+        <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/eventadd/eventform.php">ユーザー追加</a></div>
       </div>
     </div>
   </header>
   <main class="bg-gray-100 h-screen">
   <div class="form">
-    　　<h2 class="title">新規イベント追加</h2>
+    <h2 class="title">新規イベント追加</h2>
     <form class="event__add__form" action="/manage/eventadd/eventadd.php" method="post">
       <p class="sub">イベント名</p>
       <input class="event__add__form__event__place event__add__form__item" type="textarea" name="name" value="<?= $detail_contents['name'] ?>">
@@ -51,7 +51,7 @@ echo  $id;
       <p class="sub">イベント詳細</p>
       <textarea class="event__add__form__event__detail" name="text" rows="7" cols="150"><?= $detail_contents["text"] ?></textarea>
       <input type="submit" value="送信" class="event__add__form__button w-full p-3 text-md text-white bg-blue-400 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-300">
-      <input type="hidden" value="<?= $eventId ?>" name="id">
+      <input type="hidden" value="<?= $id ?>" name="id">
     </form>
   </div>
   <?= $_POST['event_name'] ?>
