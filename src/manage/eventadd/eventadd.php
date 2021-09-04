@@ -9,7 +9,7 @@ echo $_POST["end_at"];
 $sql = "INSERT INTO events (name , start_at , end_at) 
           VALUES (:name , :start_at , :end_at)
           ON DUPLICATE KEY UPDATE 
-          name = :name , start_at = :start_at , end_at = :end_at , updated_at = now()";
+          name = :name , start_at = :start_at , end_at = :end_at  , updated_at = now()";
 
 $stmt = $db->prepare($sql);
 
