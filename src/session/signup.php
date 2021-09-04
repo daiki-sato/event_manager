@@ -14,7 +14,8 @@ if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password']
 }
 //登録処理
 try {
-    $sql = "INSERT INTO users ( name , password , email) VALUES (:name , :password , :email)";
+    $sql = "INSERT INTO users ( name , password , email) VALUES (:name , :password , :email) ON DUPLICATE KEY 
+    UPDATE password = :password , reset_pass = null";
     $stmt = $db->prepare($sql);
     $params = array(':name' => $_POST["name"] , ':password' => $password , ':email' => $_POST["email"]);
     $stmt->execute($params);

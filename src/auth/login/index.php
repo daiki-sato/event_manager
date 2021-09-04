@@ -6,7 +6,7 @@ function h($s)
 }
 //ログイン済みの場合
 if (isset($_SESSION['ID'])) {
-    echo 'ようこそ' .  h($_SESSION['name']) . "さん<br>";
+    echo 'ようこそ' .  h($_SESSION['NAME']) . "さん<br>";
     echo "<a href='/session/logout.php'>ログアウトはこちら。</a>";
     echo "<a href='/'>TOPはこちら</a>";
 }
@@ -47,7 +47,7 @@ if (isset($_SESSION['ID'])) {
         <input type="submit" value="ログイン" class="cursor-pointer w-full p-3 text-md text-white bg-blue-400 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-300">
       </form>
       <div class="text-center text-xs text-gray-400 mt-6">
-        <a href="/auth/signup">パスワードを忘れた方はこちら</a>
+        <a href="/auth/ressetpassword/send_resetmail">パスワードを忘れた方はこちら</a>
       </div>
     </div>
   </main>
