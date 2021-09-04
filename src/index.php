@@ -39,7 +39,7 @@ $user_id=$_SESSION["ID"];
     </div>
   </header>
 
-  <main class="bg-gray-100">
+  <main class="bg-gray-100 h-screen">
     <div class="w-full mx-auto p-5">
       <div id="filter" class="mb-8">
         <h2 class="text-sm font-bold mb-3">フィルター</h2>       
