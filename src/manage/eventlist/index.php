@@ -26,11 +26,11 @@ function get_day_of_week ($w) {
   <header class="h-16">
     <div class="flex justify-between items-center w-full h-full mx-auto pl-2 pr-5">
       <div class="h-full">
-        <img src="../../img/header-logo.png" alt="" class="h-full">
+        <img src="/img/header-logo.png" alt="" class="h-full">
       </div>
-      <div><a href="#">イベント一覧</a></div>
-      <div><a href="../eventadd/eventform.php">イベント追加</a></div>
-      <div><a href="../eventadd/eventform.php">ユーザー追加</a></div>
+      <div><a href="/manage/eventlist/index.php">イベント一覧</a></div>
+      <div><a href="/manage/eventadd/eventform.php">イベント追加</a></div>
+      <div><a href="/eventadd/eventform.php">ユーザー追加</a></div>
     </div>
   </header>
 
