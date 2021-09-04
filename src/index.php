@@ -75,9 +75,10 @@ $user_id = $_SESSION["ID"];
         $event_contents = $db->query($Selected_All_events)->fetchAll(); // イベントデータを配列に入れる
 
         // 参加人数取得
-        $participants_number_sql = "SELECT events.id , COUNT(event_attendance.user_id) as number FROM events
+        $participants_number_sql = "SELECT events.id , COUNT(event_attendance.user_id) as number, GROUP_CONCAT( ' \n', users.name ) as user_names FROM events
         INNER JOIN event_attendance ON events.id = event_attendance.event_id
         INNER JOIN status ON event_attendance.status_id = status.id
+        INNER JOIN users ON event_attendance.user_id =  users.id
         WHERE  event_attendance.status_id = 1 AND CURDATE() <= events.start_at 
         GROUP BY events.id
         ORDER BY events.start_at"; // 選ばれたイベントデータを引っ張る
@@ -129,7 +130,8 @@ $user_id = $_SESSION["ID"];
                     <?php break; ?>
                 <?php endswitch; ?>
               </div>
-              <p class="text-sm"><span class="text-xl"><?=  $participants_number[$event['id']]["number"] ?: 0;?></span>人参加 ></p>
+              <p class="text-sm"><span class="text-xl"><?=  $participants_number[$event['id']]["number"];?></span>人参加 ></p>
+              <?php echo($participants_number[$event['id']]["user_names"])?>
             </div>
           </div>
         <?php endforeach; ?>
