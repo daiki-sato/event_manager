@@ -40,11 +40,17 @@ async function openModal(eventId) {
         switch (0) {
             case 0:
                 modalHTML += `
-                <div class="flex mt-5">
-                <form action="/manage/eventlist/edit.php">
-                <input type='submit' name="status_id" value="編集する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold"></a>
-                <input type='submit' name="status_id" value="削除する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold">
-                </div>
+                <form action="/manage/eventadd/eventform.php/?id=1">
+                    <div class="flex mt-5">
+                        <input type='submit' name="status_id" value="編集する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold"
+                        <input type="hidden" name="event_id" value="<?= $genre_content['id'] ?>">
+                    </div>
+                </form>
+
+                <form action="/manage/eventadd/eventform.php">
+                    <div class="flex mt-5">
+                        <input type='submit' name="status_id" value="削除する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold">
+                    </div>
                 </form>
         `
                 break;

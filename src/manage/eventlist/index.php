@@ -54,6 +54,12 @@ $All_events ="SELECT*FROM events";// イベントデータを引っ張る
 $event_contents = $db->query($All_events)->fetchAll();// イベントデータを配列に入れる
 
 
+// TODO:user_id修正
+// events と　 event_details結合
+$detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id";
+$detail_contents = $db->query($detail_contents_value)->fetch();
+
+
             
 // $events_num = count($All_events); // トータルデータ件数
 $max_page = ceil($All_events_number / MAX); // トータルページ数※floorは小数点をあげる関数
@@ -102,6 +108,17 @@ $disp_data = array_slice($event_contents, $start_no, MAX, true);
         </div>
         <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
       </div>
+      <form action="/manage/eventadd/eventform.php?id=<?= $event["id"]?>">
+        <!-- <div class="flex mt-5"> -->
+          <input type='submit' name="status_id" value="1" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold">
+          <!-- <input type="hidden" name="event_id" value="<//?= $genre_content['id'] ?>"> -->
+        <!-- </div> -->
+      </form>
+      <!-- <form action="/manage/eventadd/eventform.php"> -->
+        <!-- <div class="flex mt-5"> -->
+          <!-- <input type='submit' name="status_id" value="削除する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold"> -->
+        <!-- </div> -->
+      <!-- </form> -->
     </div>
   <?php endforeach; ?>
 
@@ -119,7 +136,7 @@ for($i = 1; $i <= $max_page; $i++){ // 最大ページ数分リンクを作成
     </div>
   </main>
 
-  <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+  <!-- <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
     <div class="modal-overlay absolute w-full h-full bg-black opacity-80"></div>
 
     <div class="modal-container absolute bottom-0 bg-white w-screen h-4/5 rounded-t-3xl shadow-lg z-50">
@@ -134,9 +151,9 @@ for($i = 1; $i <= $max_page; $i++){ // 最大ページ数分リンクを作成
 
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <script src="/js/index.js"></script>
+  <!-- <script src="/js/index.js"></script> -->
 </body>
 
 </html>
