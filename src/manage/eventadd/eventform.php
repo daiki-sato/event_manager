@@ -1,17 +1,22 @@
 <?php include($_SERVER['DOCUMENT_ROOT'] . "/dbconnect.php");
 
-?>
+$eventId = $_GET['event_id'];
+echo  $eventId;
 
-<?php
-$id = $_GET['id'];
-echo  $id;
+// echo  $eventId; 
 ?>
-<?php if (isset($id)) { ?>
+<?php if (isset($eventId)) { ?><?php } ?>
+
   <?php
   $detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id WHERE events.id = $eventId";
   $detail_contents = $db->query($detail_contents_value)->fetch();
+
+  // event
+  $events_value = "SELECT * FROM events WHERE events.id = 1";
+  $events = $db->query($events_value)->fetch();
+
+  echo $events["name"];
   ?>
-<?php } ?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -43,15 +48,15 @@ echo  $id;
       <h2 class="title">新規イベント追加</h2>
       <form class="event__add__form bg-gray-100 h-screen" action="/manage/eventadd/eventadd.php" method="post">
         <p class="sub">イベント名</p>
-        <input class="event__add__form__event__place event__add__form__item" type="textarea" name="name" value="<?= $detail_contents['name'] ?>">
+        <input class="event__add__form__event__name  event__add__form__item" type="textarea" name="name" value="<?= $events['name'] ?>">
         <p class="sub">開始日時</p>
-        <input placeholder="2020-08-09" class="event__add__form__event__date event__add__form__item" type="text" name="start_at" value="<?= $detail_contents['start_at'] ?>">
+        <input placeholder="2020-08-09" class="event__add__form__event__date event__add__form__item" type="text" name="start_at" value="<?= $events['start_at'] ?>">
         <p class="sub">終了日時</p>
-        <input placeholder="2020-08-09" class="event__add__form__event__date event__add__form__item" type="text" name="end_at" value="<?= $detail_contents['end_at'] ?>">
+        <input placeholder="2020-08-09" class="event__add__form__event__date event__add__form__item" type="text" name="end_at" value="<?= $events['end_at'] ?>">
         <p class="sub">イベント詳細</p>
         <textarea class="event__add__form__event__detail" name="text" rows="7" cols="150"><?= $detail_contents["text"] ?></textarea>
         <input type="submit" value="送信" class="event__add__form__button w-full p-3 text-md text-white bg-blue-400 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-300">
-        <input type="hidden" value="<?= $id ?>" name="id">
+        <input type="hidden" value="<?php echo  $eventId; ?>" name="id">
       </form>
     </div>
     <?= $_POST['event_name'] ?>
