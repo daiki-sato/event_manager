@@ -20,7 +20,7 @@ try {
     $params = array(':name' => $_POST["name"] , ':password' => $password , ':email' => $_POST["email"]);
     $stmt->execute($params);
     echo '登録完了';
-    echo '<a href="/login">loginページへ戻る</a>';
+    echo '<a href="/auth/login">loginページへ戻る</a>';
 } catch (\Exception $e) {
     echo '登録済みのemailです。';
 }

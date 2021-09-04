@@ -213,7 +213,7 @@ CREATE TABLE `users` (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `admin` int DEFAULT NULL,
   `git_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `slack_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `slack_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `reset_pass` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -222,10 +222,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `name`, `admin`, `git_id`, `slack_id`, `reset_pass`) VALUES
-(1, 'test@com', '$2y$10$qAUTKgOxdh73V6QjFfz4Be.Z1qTG71.YJiknJAAaOeypMmMuDOYy6', 'SHUTO', 1, '', 'U01C72Q45MJ', NULL),
-(2, 'test2@com', '$2y$10$FEoRodC7xIfg6CLJPjT4fe6z13j7rRdndYs0JHG1RHYRzjcr1Xtl6', 'DAIKI', 0, '', 'U01H96KU21K', NULL),
-(3, 'test3@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'TAROU', 0, '', 'U015H9Q2WTZ', ''),
-(4, 'test4@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'MORIPA', 1, '', 'U015H9Q2WTZ', '');
+(1, 'test@com', '$2y$10$qAUTKgOxdh73V6QjFfz4Be.Z1qTG71.YJiknJAAaOeypMmMuDOYy6', 'SHUTO', 1, NULL, 'U01C72Q45MJ', NULL),
+(2, 'test2@com', '$2y$10$FEoRodC7xIfg6CLJPjT4fe6z13j7rRdndYs0JHG1RHYRzjcr1Xtl6', 'DAIKI', 0, NULL, 'U01H96KU21K', NULL),
+(3, 'test3@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'TAROU', 0, NULL, 'U015H9Q2WTZ', NULL),
+(4, 'test4@com', '$2y$10$UdjbbCr8fnk7U21dI6ran.1MFgVF4gqyrmbC1t55f1a8d.FwMAR8a', 'MORIPA', 1, NULL, 'U015H9Q2WTZ', NULL);
 
 --
 -- ダンプしたテーブルのインデックス
@@ -290,7 +290,7 @@ ALTER TABLE `event_details`
 -- テーブルの AUTO_INCREMENT `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
