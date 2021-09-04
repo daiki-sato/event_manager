@@ -1,13 +1,18 @@
 <?php
+session_start();
 require('../dbconnect.php');
 header('Content-Type: application/json; charset=UTF-8');
 
 if (isset($_GET['eventId'])) {
   $eventId = htmlspecialchars($_GET['eventId']);
+  $userId  = $_SESSION["ID"];
   try {
     $stmt = $db->prepare('SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) AS total_participants FROM events LEFT JOIN event_attendance ON events.id = event_attendance.event_id WHERE events.id = ? GROUP BY events.id');
     $stmt->execute(array($eventId));
     $event = $stmt->fetch();
+
+    $stmt = $db->query("SELECT status_id  FROM event_attendance WHERE user_id = $userId AND event_id = $eventId");
+    $status_id = $stmt->fetch(PDO::FETCH_COLUMN);
     
     $start_date = strtotime($event['start_at']);
     $end_date = strtotime($event['end_at']);
@@ -28,6 +33,7 @@ if (isset($_GET['eventId'])) {
       'total_participants' => $event['total_participants'],
       'message' => $eventMessage,
       'status' => $status,
+      'status_id' => $status_id,
       'deadline' => date("m月d日", strtotime('-3 day', $end_date)),
     ];
     

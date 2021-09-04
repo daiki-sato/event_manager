@@ -1,0 +1,12 @@
+.cantClick {
+    disabled: true;
+    cursor: default;
+}
+
+.participation {
+    background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
+}
+
+.non__participation {
+    background-color: rgba(209, 213, 219, var(--tw-bg-opacity));
+}
