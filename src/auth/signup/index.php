@@ -1,16 +1,9 @@
 <?php
-session_start();
+include($_SERVER['DOCUMENT_ROOT'] . "/session/admin_session_check.php");
 function h($s)
 {
     return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
 }
-//ログイン済みの場合
-if (isset($_SESSION['ID'])) {
-    echo 'ようこそ' .  h($_SESSION['NAME']) . "さん<br>";
-    echo "<a href='/'>TOPはこちら</a>";
-    exit;
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -33,6 +26,11 @@ if (isset($_SESSION['ID'])) {
     </header>
 
     <main class="bg-gray-100 h-screen">
+        <div class="box1">
+            <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventlist/index.php">イベント一覧</a></div>
+            <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventadd/eventform.php">イベント追加</a></div>
+            <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/auth/signup">ユーザー追加</a></div>
+        </div>
         <div class="w-full mx-auto py-10 px-5">
             <h2 class="text-md font-bold mb-5">サインアップ</h2>
             <form action="/session/signup.php" method="POST">
@@ -41,9 +39,10 @@ if (isset($_SESSION['ID'])) {
                 <label for="email">email</label>
                 <input name="email" type="email" placeholder="メールアドレス" class="w-full p-4 text-sm mb-3">
                 <label for="password">password</label>
+                <label>パスワードは英数字含む8文字以上 </label>
                 <input name="password" type="password" placeholder="パスワード" class="w-full p-4 text-sm mb-3">
                 <label for="password">githubのID(ない場合は何も書かない)</label>
-                <input name="github_id"  placeholder="パスワード" class="w-full p-4 text-sm mb-3">
+                <input name="github_id" placeholder="パスワード" class="w-full p-4 text-sm mb-3">
                 <input type="submit" value="サインアップ" class="cursor-pointer w-full p-3 text-md text-white bg-blue-400 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-300">
             </form>
             <div class="text-center text-xs text-gray-400 mt-6">
@@ -54,8 +53,3 @@ if (isset($_SESSION['ID'])) {
 </body>
 
 </html>
-
-<!-------------------------------------------------
-TODO:サインアップ / パスワード英8文字以上 
-サインアップ時
---------------------------------------------------->
