@@ -26,14 +26,14 @@ $eventId = $_GET['event_id'];
 
 <body class="bg-gray-100 h-screen">
   <header class="bg-white h-16">
-    <div class="flex justify-between items-center w-full h-full mx-auto pl-2 pr-5 ">
+    <div class="flex justify-between items-center w-full h-full mx-auto pl-2 pr-5">
       <div class="h-full ">
       <a href="/manage/eventlist/index.php"><img src="/img/header-logo.png" alt="posseロゴ" class="h-full"></a> 
       </div>
       <div class="box1">
         <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventlist/index.php">イベント一覧</a></div>
         <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventadd/eventform.php">イベント追加</a></div>
-        <div class="box　px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/auth/signup">ユーザー追加</a></div>
+        <div class="box py-2 header__add_user__button text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/auth/signup">ユーザー追加</a></div>
       </div>
     </div>
   </header>

@@ -32,13 +32,13 @@ function get_day_of_week($w)
       <div class="box1">
         <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventlist/index.php">イベント一覧</a></div>
         <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventadd/eventform.php">イベント追加</a></div>
-        <div class="box　px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/auth/signup">ユーザー追加</a></div>
+        <div class="box py-2 header__add_user__button text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/auth/signup">ユーザー追加</a></div>
       </div>
     </div>
   </header>
 
-  <main class="bg-gray-100">
-    <div class="w-full mx-auto p-5">
+  <main class="bg-gray-100 px-5 h-screen">
+    <div class="w-full mx-auto py-5">
       <div id="events-list">
         <div class="flex justify-between items-center mb-3">
           <h2 class="text-sm font-bold">一覧</h2>
@@ -56,8 +56,6 @@ function get_day_of_week($w)
         $All_events = "SELECT*FROM events"; // イベントデータを引っ張る
         $event_contents = $db->query($All_events)->fetchAll(); // イベントデータを配列に入れる
 
-
-        // TODO:user_id修正
         // events と　 event_details結合
         $detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id";
         $detail_contents = $db->query($detail_contents_value)->fetch();
@@ -112,14 +110,16 @@ function get_day_of_week($w)
               <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
             </div>
           </div>
-          <form action="/manage/eventadd/eventform.php?event_id=<?= $event["id"] ?>" method="post">
-            <input type='submit' value="変更する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold">
-            <input type="hidden" name="id" value="<?= $event['id'] ?>">
-          </form>
-          <form action="/manage/eventlist/delete.php">
-            <input type='submit' value="削除する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold">
-            <input type="hidden" name="delete"  value="<?= $event['id'] ?>">
-          </form>
+          <div class="edit__buttons">
+            <form class="edit__buttons__form" action="/manage/eventadd/eventform.php?event_id=<?= $event["id"] ?>" method="post">
+              <input type='submit' value="変更する" class="flex-1 bg-blue-500 py-2 rounded-3xl text-white text-lg font-bold edit__buttons__form__input">
+              <input type="hidden" name="id" value="<?= $event['id'] ?>">
+            </form>
+            <form class="edit__buttons__form" action="/manage/eventlist/delete.php">
+              <input type='submit' value="削除する" class="flex-1 bg-blue-500 py-2 rounded-3xl text-white text-lg font-bold edit__buttons__form__input">
+              <input type="hidden" name="delete"  value="<?= $event['id'] ?>">
+            </form>
+          </div>
       </div>
     <?php endforeach; ?>
 
@@ -132,7 +132,6 @@ function get_day_of_week($w)
           echo '<a class = "page-number" href="/manage/eventlist/index.php?page_id=' . $i . '")>' . $i . '</a>'; ?>
       <?php }
       } ?>
-      ?>
     </div>
 
 

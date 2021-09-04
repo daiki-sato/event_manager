@@ -27,6 +27,21 @@ async function openModal(eventId) {
         const url = '/api/getModalInfo.php?eventId=' + eventId
         const res = await fetch(url)
         const event = await res.json()
+        var status_color = "";
+        switch (Number(event.status_id)) {
+            case 0:
+                status_color = "yellow";
+                break;
+            case 1:
+                status_color = "green";
+                break;
+            case 2:
+                status_color = "gray";
+                break;
+        
+            default:
+                break;
+        }
         let modalHTML = `
             <h2 class="text-md font-bold mb-3">${event.name}</h2>
             <p class="text-sm">${event.date}（${event.day_of_week}）</p>
@@ -37,15 +52,18 @@ async function openModal(eventId) {
             <p class="text-md">
                 ${event.message}
             </p>
+            <p class="text-md">
+                【詳細】<br>
+                ${event.event_detail}
+            </p>
             <hr class="my-4">
             <p class="text-sm"><span class="text-xl">${event.total_participants}</span>人参加 ></p>
             `
-        switch (0) {
-            case 0:
-                modalHTML += `
+
+            modalHTML += `
             <div class="text-center mt-6">
-                <p class="text-lg font-bold text-yellow-400">未回答</p>
-                <p class="text-xs text-yellow-400">期限 ${event.deadline}</p>
+                <p class="text-lg font-bold text-${status_color}-400">${event.status}</p>
+                <p class="text-xs text-${status_color}-400">期限 ${event.deadline}</p>
             </div>
             <form action="/participation_management.php" method="post">
                 <div class="flex mt-5">
@@ -54,24 +72,8 @@ async function openModal(eventId) {
                 <input type="hidden" name="user_id" value="1">
                 <input type="hidden" name="event_id" value="${eventId}">
                 </div>
-            </form>
-            `
-                break;
-            case 1:
-                modalHTML += `
-            <div class="text-center mt-10">
-                <p class="text-xl font-bold text-gray-300">不参加</p>
-            </div>
-            `
-                break;
-            case 2:
-                modalHTML += `
-            <div class="text-center mt-10">
-                <p class="text-xl font-bold text-green-400">参加</p>
-            </div>
-            `
-                break;
-        }
+            </form>`
+
         modalInnerHTML.insertAdjacentHTML('afterbegin', modalHTML)
         if (event.status_id == 1) {
             document.getElementById("modal__participation").classList.add("cantClick");
