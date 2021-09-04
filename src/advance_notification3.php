@@ -10,6 +10,9 @@ INNER JOIN users ON event_attendance.user_id = users.id
 WHERE event_attendance.status_id = 0 AND events.start_at >= DATE_ADD(CURDATE(), INTERVAL 3 DAY)  AND events.start_at <  DATE_ADD(CURDATE(), INTERVAL 4 DAY)
 ORDER BY events.id");
 $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if (!$events) {
+    exit;
+}
 $page_url = (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"]."/";
 foreach ($events as $event) {
     $to = $event["email"];
