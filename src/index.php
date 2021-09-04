@@ -34,12 +34,12 @@ $user_id=$_SESSION["ID"];
         <img src="img/header-logo.png" alt="" class="h-full">
       </div>
       <div>
-        <a href="/auth/login" class="text-white bg-blue-400 px-4 py-2 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-200">ログイン</a>
+        <a href="/session/logout.php" class="text-white bg-blue-400 px-4 py-2 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-200">ログアウト</a>
       </div>
     </div>
   </header>
 
-  <main class="bg-gray-100">
+  <main class="bg-gray-100 h-screen">
     <div class="w-full mx-auto p-5">
       <div id="filter" class="mb-8">
         <h2 class="text-sm font-bold mb-3">フィルター</h2>       
