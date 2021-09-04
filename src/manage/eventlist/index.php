@@ -30,7 +30,7 @@ function get_day_of_week ($w) {
       </div>
       <div><a href="#">イベント一覧</a></div>
       <div><a href="../eventadd/eventform.php">イベント追加</a></div>
-      <div><a href="../eventadd/eventform.php">ユーザー追加</a></div>
+      <div><a href="/auth/signup">ユーザー追加</a></div>
     </div>
   </header>
 
