@@ -110,7 +110,7 @@ $disp_data = array_slice($event_contents, $start_no, MAX, true);
         </div>
         <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
       </div>
-      <form action="/manage/eventadd/eventform.php/?event_id=<?= $event["id"] ?>" method="post">
+      <form action="/manage/eventadd/eventform.php?event_id=<?= $event["id"] ?>" method="post">
         <!-- <div class="flex mt-5"> -->
           <input type='submit' value="変更する" class="flex-1 bg-blue-500 py-2 mx-3 rounded-3xl text-white text-lg font-bold">
           <input type="hidden" name="id" value="<?= $event['id'] ?>">
