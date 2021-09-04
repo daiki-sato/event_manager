@@ -29,6 +29,9 @@ $user_id = $_SESSION["ID"];
         <a href="/"><img src="/img/header-logo.png" alt="" class="h-full"></a>
       </div>
       <div>
+        <?php if($_SESSION["ADMIN"]==1): ?>
+          <a href="/manage/eventlist" class="text-white bg-blue-400 px-4 py-2 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-200">管理画面へ</a>
+        <?php endif ?>
         <a href="/session/logout.php" class="text-white bg-blue-400 px-4 py-2 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-200">ログアウト</a>
       </div>
     </div>
@@ -69,7 +72,7 @@ $user_id = $_SESSION["ID"];
         $Selected_All_events = "SELECT events.id, events.name, events.start_at, events.end_at , status.id as status_id , status.name as status_name FROM events
         INNER JOIN event_attendance ON events.id = event_attendance.event_id
         INNER JOIN status ON event_attendance.status_id = status.id
-        WHERE  event_attendance.user_id = 1 AND CURDATE() <= events.start_at $status_sql
+        WHERE  event_attendance.user_id = $user_id AND CURDATE() <= events.start_at $status_sql
         ORDER BY events.start_at"; // 選ばれたイベントデータを引っ張る
         $event_contents = $db->query($Selected_All_events)->fetchAll(); // イベントデータを配列に入れる
 

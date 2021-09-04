@@ -20,6 +20,7 @@ if (password_verify($_POST['password'], $user['password'])) {
     session_regenerate_id(true); //session_idを新しく生成し、置き換える
     $_SESSION['ID'] = $user['id'];
     $_SESSION['NAME'] = $user['name'];
+    $_SESSION['ADMIN'] = $user['admin'];
     $url = "http://".$_SERVER['HTTP_HOST'];
     header("Location: $url");
     exit;

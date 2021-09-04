@@ -1,4 +1,5 @@
 <?php include($_SERVER['DOCUMENT_ROOT'] . "/dbconnect.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/session/admin_session_check.php");
 $eventId = $_GET['event_id'];
 ?>
 <?php if (isset($eventId)) { ?>
