@@ -110,7 +110,7 @@ $disp_data = array_slice($event_contents, $start_no, MAX, true);
       <?php
       for($i = 1; $i <= $max_page; $i++){ // 最大ページ数分リンクを作成
           if ($i == $now) {?>
-            <span class = "blue-word page-number"> <?php echo $now. '　'; ?> </span>
+            <span class = "blue-word page-number"> <?php echo$now.' ';?></span>
         <?php  } else {
               echo '<a class = "page-number" href="/manage/eventlist/index.php?page_id='. $i. '")>'. $i. '</a>';?>
         <?php }
