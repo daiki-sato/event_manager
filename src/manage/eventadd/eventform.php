@@ -1,22 +1,16 @@
 <?php include($_SERVER['DOCUMENT_ROOT'] . "/dbconnect.php");
-
 $eventId = $_GET['event_id'];
-echo  $eventId;
-
-// echo  $eventId; 
 ?>
-<?php if (isset($eventId)) { ?><?php } ?>
-
-  <?php
-  $detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id WHERE events.id = $eventId";
-  $detail_contents = $db->query($detail_contents_value)->fetch();
-
-  // event
-  $events_value = "SELECT * FROM events WHERE events.id = 1";
-  $events = $db->query($events_value)->fetch();
-
-  echo $events["name"];
-  ?>
+<?php if (isset($eventId)) { ?>
+  
+    <?php
+    $detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id WHERE events.id = $eventId";
+    $detail_contents = $db->query($detail_contents_value)->fetch();
+    
+    // event
+    $events_value = "SELECT * FROM events WHERE events.id = $eventId";
+    $events = $db->query($events_value)->fetch();
+  } ?>
 
 <!DOCTYPE html>
 <html lang="ja">
