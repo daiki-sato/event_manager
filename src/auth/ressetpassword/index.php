@@ -5,6 +5,7 @@ $sql = "SELECT * FROM users WHERE  reset_pass = \"$pass\" ";
 $user = $db->query($sql)->fetch();
 if (!isset($user["email"])) {
     echo "無効なurlです";
+    echo'<a href="/auth/login">loginページへ戻る</a>';
     exit;
 }
 ?>
@@ -37,6 +38,7 @@ if (!isset($user["email"])) {
                 <input name="email" type="hidden" placeholder="メールアドレス" class="w-full p-4 text-sm mb-3" value="<?=$user['email']?>">
                 <label for="password">password</label>
                 <input name="password" type="password" placeholder="パスワード" class="w-full p-4 text-sm mb-3">
+                <label>パスワードは英数字8文字以上、アルファベットと数字を含んでください</label>
                 <input type="submit" value="登録する" class="cursor-pointer w-full p-3 text-md text-white bg-blue-400 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-300">
             </form>
         </div>
