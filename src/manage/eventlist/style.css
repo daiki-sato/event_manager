@@ -2,3 +2,17 @@
   display: flex;
   cursor: pointer;
 }
+.pager-num{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blue-word{
+ color: blue;
+}
+
+.page-number{
+  margin-left: 10px;
+  margin-right: 10px;
+}
