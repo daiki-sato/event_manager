@@ -34,8 +34,7 @@ if (isset($_SESSION['ID'])) {
 
     <main class="bg-gray-100 h-screen">
         <div class="w-full mx-auto py-10 px-5">
-            <h2 class="text-md font-bold mb-5">ログイン</h2>
-            <h2>サインアップ</h2>
+            <h2 class="text-md font-bold mb-5">サインアップ</h2>
             <form action="/session/signup.php" method="POST">
                 <label>name</label>
                 <input name="name" class="w-full p-4 text-sm mb-3">
