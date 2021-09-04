@@ -157,7 +157,7 @@ if (isset($_GET['status_id'])) {
   $All_events_number_sql = 'SELECT count(*)FROM events'; // トータルデータ件数
   $All_events_number = $db->query($All_events_number_sql)->fetch(PDO::FETCH_COLUMN); // イベントデータを配列に入れる
 
-  $All_events = "SELECT * FROM events  INNER JOIN event_attendance ON events.id = event_attendance.id;" ; // イベントデータを引っ張る
+  $All_events = "SELECT * FROM events  INNER JOIN event_attendance ON events.id = event_attendance.event_id WHERE event_attendance.user_id = $user_id ;" ; // イベントデータを引っ張る
   $event_contents = $db->query($All_events)->fetchAll(); // イベントデータを配列に入れる
 
   // $events_num = count($All_events); // トータルデータ件数
