@@ -134,7 +134,13 @@ $user_id = $_SESSION["ID"];
                 <?php endswitch; ?>
               </div>
               <p class="text-sm"><span class="text-xl"><?=  $participants_number[$event['id']]["number"];?></span>人参加 ></p>
-              <?php echo nl2br($participants_number[$event['id']]["user_names"])?>
+              <!-- コンマでユーザー名を１つ１つの文字列に変換して、それぞれをhtmlタグに挿入 -->
+              <?php $participants_users = explode(",",$participants_number[$event['id']]["user_names"]);?>
+              <ul>
+                <?php foreach ($participants_users as  $participants_user) : ?>
+                    <li><?php echo $participants_user; ?></li>
+                <?php endforeach ?>
+              </ul>
             </div>
           </div>
         <?php endforeach; ?>
