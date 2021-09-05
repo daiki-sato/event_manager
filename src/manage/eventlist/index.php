@@ -112,8 +112,19 @@ function get_day_of_week($w)
               -->
                 <?php endif; ?>
               </div>
-              <p class="text-sm"><span class="text-xl"><?=$participants_number[$event["id"]]["number"]; ?></span>人参加 ></p>
-              <?php print_r($participants_number[$event["id"]]["user_names"] );?>
+
+              <!-- コンマでユーザー名を１つ１つの文字列に変換して、それぞれをhtmlタグに挿入 -->
+              <?php $participants_users = explode(",", $participants_number[$event['id']]["user_names"]); ?>
+              <ul class="menu">
+                <li class="menu__item">
+                  <a class="text-sm menu__item__link js-menu__item__link"><span class="text-xl"><?= $participants_number[$event['id']]["number"] ?? 0; ?></span>人参加 ></a>
+                  <ul class="submenu">
+                    <?php foreach ($participants_users as  $participants_user) : ?>
+                      <li class="submenu__item"><a><?php echo $participants_user; ?></a></li>
+                    <?php endforeach ?>
+                  </ul>
+                </li>
+              </ul>
             </div>
           </div>
           <div class="edit__buttons">
@@ -140,6 +151,8 @@ function get_day_of_week($w)
       } ?>
     </div>
   </main>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="/js/manage.js"></script>
 </body>
 
 </html>
