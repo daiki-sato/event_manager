@@ -22,4 +22,5 @@ if(!$stmt["id"]){
 
 $stmt = $db->query("UPDATE `users` SET `reset_pass`= \"$pass\" WHERE `email` = \"$to\"");
 mb_send_mail($to, $subject, $body, $headers);
-echo "メールを送信しました";
+echo "メールを送信しました。urlから再設定を行ってください。<br>";
+echo '<a href="/auth/login";>loginページへ戻る</a>';
