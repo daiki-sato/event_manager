@@ -69,7 +69,7 @@ async function openModal(eventId) {
                 <div class="flex mt-5">
                 <button type='submit' name="status_id" value="1" class="participation flex-1 py-2 mx-3 rounded-3xl text-white text-lg font-bold" id="modal__participation">参加する</button>
                 <button type='submit' name="status_id" value="2" class="participation flex-1 py-2 mx-3 rounded-3xl text-white text-lg font-bold" id="modal__nonParticipation">参加しない</button>
-                <input type="hidden" name="user_id" value="1">
+                <input type="hidden" name="user_id" value="${event.user_id}">
                 <input type="hidden" name="event_id" value="${eventId}">
                 </div>
             </form>`
