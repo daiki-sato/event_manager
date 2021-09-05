@@ -13,24 +13,26 @@ function h($s)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="useradd.css">
     <title>Schedule | POSSE</title>
 </head>
 
 <body>
-    <header class="h-16">
-        <div class="flex justify-between items-center w-full h-full mx-auto pl-2 pr-5">
-            <div class="h-full">
-            <a href="/manage/eventlist/index.php"><img src="/img/header-logo.png" alt="posseロゴ" class="h-full"></a>
-            </div>
-        </div>
-    </header>
+<header class="h-16">
+    <div class="flex justify-between items-center w-full h-full mx-auto pl-2 pr-5">
+      <div class="h-full">
+        <a href="/manage/eventlist/index.php"><img src="/img/header-logo.png" alt="posseロゴ" class="h-full"></a>
+      </div>
+      <div class="box1">
+        <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventlist/index.php">イベント一覧</a></div>
+        <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventadd/eventform.php">イベント追加</a></div>
+        <div class="box py-2 header__add_user__button text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/auth/signup">ユーザー追加</a></div>
+      </div>
+    </div>
+  </header>
 
     <main class="bg-gray-100 h-screen">
-        <div class="box1">
-            <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventlist/index.php">イベント一覧</a></div>
-            <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/manage/eventadd/eventform.php">イベント追加</a></div>
-            <div class="box px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md bg-white"><a href="/auth/signup">ユーザー追加</a></div>
-        </div>
+       
         <div class="w-full mx-auto py-10 px-5">
             <h2 class="text-md font-bold mb-5">サインアップ</h2>
             <form action="/session/signup.php" method="POST">
