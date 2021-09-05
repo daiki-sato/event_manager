@@ -35,6 +35,7 @@ function h($s)
        
         <div class="w-full mx-auto py-10 px-5">
             <h2 class="text-md font-bold mb-5">サインアップ</h2>
+            <label>（登録済みののメールアドレスを入力すると上書きができます。）</label>
             <form action="/session/signup.php" method="POST">
                 <label>name</label>
                 <input name="name" class="w-full p-4 text-sm mb-3">
@@ -44,7 +45,9 @@ function h($s)
                 <label>パスワードは英数字含む8文字以上 </label>
                 <input name="password" type="password" placeholder="パスワード" class="w-full p-4 text-sm mb-3">
                 <label for="password">githubのID(ない場合は何も書かない)</label>
-                <input name="github_id" placeholder="パスワード" class="w-full p-4 text-sm mb-3">
+                <input name="github_id" placeholder="ID" class="w-full p-4 text-sm mb-3">
+                <label for="password">slackのID(ない場合は何も書かない)</label>
+                <input name="slack_id" placeholder="ID" class="w-full p-4 text-sm mb-3">
                 <input type="submit" value="サインアップ" class="cursor-pointer w-full p-3 text-md text-white bg-blue-400 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-300">
             </form>
         </div>

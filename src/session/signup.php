@@ -15,10 +15,10 @@ if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password']
 }
 //登録処理
 try {
-    $sql = "INSERT INTO users ( name , password , email , github_id) VALUES (:name , :password , :email , :github_id) ON DUPLICATE KEY 
+    $sql = "INSERT INTO users ( name , password , email , github_id ,slack_id) VALUES (:name , :password , :email , :github_id ,:slack_id) ON DUPLICATE KEY 
     UPDATE password = :password , reset_pass = null";
     $stmt = $db->prepare($sql);
-    $params = array(':name' => $_POST["name"] , ':password' => $password , ':email' => $_POST["email"] , ':github_id'=> $_POST["github_id"]);
+    $params = array(':name' => $_POST["name"] , ':password' => $password , ':email' => $_POST["email"] , ':github_id'=> $_POST["github_id"] ,'slack_id' => $_POST["slack_id"]);
     $stmt->execute($params);
     echo '登録完了';
     echo '<a href="/auth/login">ログインページへ戻る</a>';
