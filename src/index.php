@@ -29,7 +29,7 @@ $user_id = $_SESSION["ID"];
         <a href="/"><img src="/img/header-logo.png" alt="" class="h-full"></a>
       </div>
       <div>
-        <?php if($_SESSION["ADMIN"]==1): ?>
+        <?php if ($_SESSION["ADMIN"] == 1) : ?>
           <a href="/manage/eventlist" class="text-white bg-blue-400 px-4 py-2 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-200">管理画面へ</a>
         <?php endif ?>
         <a href="/session/logout.php" class="text-white bg-blue-400 px-4 py-2 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-200">ログアウト</a>
@@ -43,10 +43,10 @@ $user_id = $_SESSION["ID"];
         <h2 class="text-sm font-bold mb-3">フィルター</h2>
         <?php ?>
         <div class="flex">
-          <a href="/index.php/?page_id=1" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md <?= !$_GET['status_id']&&$_GET['status_id'] != "0" ?"bg-blue-600 text-white":"bg-white"?> ">全て</a>
-          <a href="/index.php/?page_id=1&status_id=1" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md <?= $_GET['status_id'] == 1?"bg-blue-600 text-white":"bg-white"?> ">参加</a>
-          <a href="/index.php/?page_id=1&status_id=2"  class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md <?= $_GET['status_id'] == 2?"bg-blue-600 text-white":"bg-white"?>">不参加</a>
-          <a href="/index.php/?page_id=1&status_id=0"  class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md <?= $_GET['status_id'] == "0"?"bg-blue-600 text-white":"bg-white"?>">未回答</a>
+          <a href="/index.php/?page_id=1" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md <?= !$_GET['status_id'] && $_GET['status_id'] != "0" ? "bg-blue-600 text-white" : "bg-white" ?> ">全て</a>
+          <a href="/index.php/?page_id=1&status_id=1" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md <?= $_GET['status_id'] == 1 ? "bg-blue-600 text-white" : "bg-white" ?> ">参加</a>
+          <a href="/index.php/?page_id=1&status_id=2" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md <?= $_GET['status_id'] == 2 ? "bg-blue-600 text-white" : "bg-white" ?>">不参加</a>
+          <a href="/index.php/?page_id=1&status_id=0" class="px-3 py-2 text-md font-bold mr-2 rounded-md shadow-md <?= $_GET['status_id'] == "0" ? "bg-blue-600 text-white" : "bg-white" ?>">未回答</a>
         </div>
       </div>
 
@@ -85,7 +85,7 @@ $user_id = $_SESSION["ID"];
         WHERE  event_attendance.status_id = 1 AND CURDATE() <= events.start_at 
         GROUP BY events.id
         ORDER BY events.start_at"; // 選ばれたイベントデータを引っ張る
-        $participants_number = $db->query($participants_number_sql)->fetchAll(PDO::FETCH_ASSOC|PDO::FETCH_UNIQUE); // イベントデータを配列に入れる
+        $participants_number = $db->query($participants_number_sql)->fetchAll(PDO::FETCH_ASSOC | PDO::FETCH_UNIQUE); // イベントデータを配列に入れる
 
 
         // $events_num = count($All_events); // トータルデータ件数
@@ -133,13 +133,22 @@ $user_id = $_SESSION["ID"];
                     <?php break; ?>
                 <?php endswitch; ?>
               </div>
-              <p class="text-sm"><span class="text-xl"><?=  $participants_number[$event['id']]["number"];?></span>人参加 ></p>
+              <!-- <p class="text-sm"><span class="text-xl"><?= $participants_number[$event['id']]["number"]; ?></span>人参加 ></p> -->
+
+
+              <!-- TODO:アコーディオン -->
               <!-- コンマでユーザー名を１つ１つの文字列に変換して、それぞれをhtmlタグに挿入 -->
-              <?php $participants_users = explode(",",$participants_number[$event['id']]["user_names"]);?>
-              <ul>
-                <?php foreach ($participants_users as  $participants_user) : ?>
-                    <li><?php echo $participants_user; ?></li>
-                <?php endforeach ?>
+              <?php $participants_users = explode(",", $participants_number[$event['id']]["user_names"]); ?>
+              <ul class="menu">
+                <li class="menu__item">
+                  <a class="text-sm menu__item__link js-menu__item__link"><span class="text-xl"><?= $participants_number[$event['id']]["number"]; ?></span>人参加 ></a>
+                  <!-- <a class="menu__item__link js-menu__item__link" href="">メニュー1（クリックで開く）</a> -->
+                  <ul class="submenu">
+                    <?php foreach ($participants_users as  $participants_user) : ?>
+                      <li class="submenu__item"><a href=""><?php echo $participants_user; ?></a></li>
+                    <?php endforeach ?>
+                  </ul>
+                </li>
               </ul>
             </div>
           </div>
@@ -176,7 +185,7 @@ $user_id = $_SESSION["ID"];
       </div>
     </div>
   </div>
-
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="/js/main.js"></script>
 </body>
 

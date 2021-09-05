@@ -38,7 +38,7 @@ async function openModal(eventId) {
             case 2:
                 status_color = "gray";
                 break;
-        
+
             default:
                 break;
         }
@@ -60,7 +60,7 @@ async function openModal(eventId) {
             <p class="text-sm"><span class="text-xl">${event.total_participants}</span>人参加 ></p>
             `
 
-            modalHTML += `
+        modalHTML += `
             <div class="text-center mt-6">
                 <p class="text-lg font-bold text-${status_color}-400">${event.status}</p>
                 <p class="text-xs text-${status_color}-400">期限 ${event.deadline}</p>
@@ -130,3 +130,15 @@ async function participateEvent(eventId) {
         console.log(error)
     }
 }
+
+/*------------------------------
+* アコーディオン
+-------------------------------*/
+$(function() {
+    $('.js-menu__item__link').each(function() {
+        $(this).on('click', function() {
+            $("+.submenu", this).slideToggle();
+            return false;
+        });
+    });
+});
