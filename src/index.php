@@ -7,6 +7,7 @@ function get_day_of_week($w)
   return $day_of_week_list["$w"];
 }
 $user_id = $_SESSION["ID"];
+
 ?>
 
 <!DOCTYPE html>

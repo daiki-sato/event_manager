@@ -1,6 +1,12 @@
 <?php
 session_start();
+// $output = '';
+// if (isset($_SESSION["ID"])) {
+//     $output = 'Logoutしました。';
 
+// } else {
+//     $output = 'Loginしてません。';
+// }
 //セッション変数のクリア
 $_SESSION = array();
 //セッションクッキーも削除
@@ -20,7 +26,7 @@ if (ini_get("session.use_cookies")) {
 @session_destroy();
 
 echo $output;
-?>
+// echo '<a href="/auth/login";>loginページへ戻る</a>';?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -46,8 +52,8 @@ echo $output;
     </div>
   </header>
   <main class="bg-gray-100 h-screen">
-    <h1>Log Outしました。</h1>
-    <img class="checked" src="/img/checked.png" alt="">
+   <h1>Log Outしました。</h1>
+   <img class="checked" src="/img/checked.png" alt="">
   </main>
 </body>
 

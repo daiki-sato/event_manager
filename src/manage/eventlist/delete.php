@@ -39,6 +39,7 @@ try {
       </div>
     </main>
   </body>
+
   </html>
 
 <?php } catch (Exception $e) {
