@@ -55,14 +55,17 @@ function get_day_of_week($w)
         $All_events_number_sql = 'SELECT count(*)FROM events'; // トータルデータ件数
         $All_events_number = $db->query($All_events_number_sql)->fetch(PDO::FETCH_COLUMN); // イベントデータを配列に入れる
 
-        $All_events = "SELECT*FROM events"; // イベントデータを引っ張る
+        $All_events = "SELECT*FROM events WHERE events.start_at >= CURDATE() ORDER BY events.start_at"; // イベントデータを引っ張る
         $event_contents = $db->query($All_events)->fetchAll(); // イベントデータを配列に入れる
 
-        // events と　 event_details結合
-        $detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id";
-        $detail_contents = $db->query($detail_contents_value)->fetch();
-
-
+        $participants_number_sql = "SELECT events.id , COUNT(event_attendance.user_id) as number, GROUP_CONCAT( ' \n', users.name ) as user_names FROM events
+        INNER JOIN event_attendance ON events.id = event_attendance.event_id
+        INNER JOIN status ON event_attendance.status_id = status.id
+        INNER JOIN users ON event_attendance.user_id =  users.id
+        WHERE  event_attendance.status_id = 1 AND CURDATE() <= events.start_at 
+        GROUP BY events.id
+        ORDER BY events.start_at"; // 選ばれたイベントデータを引っ張る
+        $participants_number = $db->query($participants_number_sql)->fetchAll(PDO::FETCH_ASSOC | PDO::FETCH_UNIQUE); // イベントデータを配列に入れる
 
         // $events_num = count($All_events); // トータルデータ件数
         $max_page = ceil($All_events_number / MAX); // トータルページ数※floorは小数点をあげる関数
@@ -109,7 +112,8 @@ function get_day_of_week($w)
               -->
                 <?php endif; ?>
               </div>
-              <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
+              <p class="text-sm"><span class="text-xl"><?=$participants_number[$event["id"]]["number"]; ?></span>人参加 ></p>
+              <?php print_r($participants_number[$event["id"]]["user_names"] );?>
             </div>
           </div>
           <div class="edit__buttons">
