@@ -52,7 +52,6 @@
 }
 
 .submenu__item {
-    border-bottom: 1px solid #222;
-    color: #222;
-    padding: 1rem;
+    color: #34d399;
+    padding: 0.5% 16%;
 }

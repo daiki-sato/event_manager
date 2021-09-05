@@ -38,3 +38,31 @@
     padding-right: 10px;
     padding-left: 10px;
 }
+
+
+/*------------------------------
+* アコーディオン
+-------------------------------*/
+
+.menu__item {
+    background: #fff;
+    color: #222;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 1px;
+    position: relative;
+}
+
+.menu__item__link {
+    display: block;
+    padding: 1rem;
+}
+
+.submenu {
+    display: none;
+}
+
+.submenu__item {
+    color: #34d399;
+    padding: 0.5% 16%;
+}
