@@ -3,7 +3,6 @@ include($_SERVER['DOCUMENT_ROOT'] . "/session/admin_session_check.php");
 $eventId = $_GET['event_id'];
 ?>
 <?php if (isset($eventId)) { ?>
-  
     <?php
     $detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id WHERE events.id = $eventId";
     $detail_contents = $db->query($detail_contents_value)->fetch();
