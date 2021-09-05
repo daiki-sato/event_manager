@@ -20,7 +20,7 @@ function h($s)
     <header class="h-16">
         <div class="flex justify-between items-center w-full h-full mx-auto pl-2 pr-5">
             <div class="h-full">
-                <img src="/img/header-logo.png" alt="" class="h-full">
+            <a href="/manage/eventlist/index.php"><img src="/img/header-logo.png" alt="posseロゴ" class="h-full"></a>
             </div>
         </div>
     </header>
@@ -45,9 +45,6 @@ function h($s)
                 <input name="github_id" placeholder="パスワード" class="w-full p-4 text-sm mb-3">
                 <input type="submit" value="サインアップ" class="cursor-pointer w-full p-3 text-md text-white bg-blue-400 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-300">
             </form>
-            <div class="text-center text-xs text-gray-400 mt-6">
-                <a href="/auth/login">ログインする方はこちら</a>
-            </div>
         </div>
     </main>
 </body>
