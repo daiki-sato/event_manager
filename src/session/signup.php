@@ -52,8 +52,8 @@ try {
     </div>
   </header>
   <main class="bg-gray-100 h-screen">
-   <h1>登録完了しました。</h1>
-   <img class="checked" src="/img/checked.png" alt="">
+    <h1>登録完了しました。</h1>
+    <img class="checked" src="/img/checked.png" alt="">
   </main>
 </body>
 

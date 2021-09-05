@@ -9,7 +9,6 @@ function get_day_of_week($w)
   $day_of_week_list = ['日', '月', '火', '水', '木', '金', '土'];
   return $day_of_week_list["$w"];
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +45,6 @@ function get_day_of_week($w)
           <h2 class="text-sm font-bold">一覧</h2>
         </div>
 
-
         <!-- ページング実装 -->
         <?php
 
@@ -61,7 +59,6 @@ function get_day_of_week($w)
         // events と　 event_details結合
         $detail_contents_value = "SELECT* FROM events INNER JOIN event_details ON events.id = event_details.event_id";
         $detail_contents = $db->query($detail_contents_value)->fetch();
-
 
 
         // $events_num = count($All_events); // トータルデータ件数
@@ -95,18 +92,7 @@ function get_day_of_week($w)
             <div class="flex flex-col justify-between text-right">
               <div>
                 <?php if ($event['id'] % 3 === 1) : ?>
-                  <!--
-              <p class="text-sm font-bold text-yellow-400">未回答</p>
-              <p class="text-xs text-yellow-400">期限 <?php echo date("m月d日", strtotime('-3 day', $end_date)); ?></p>
-              -->
-                <?php elseif ($event['id'] % 3 === 2) : ?>
-                  <!-- 
-              <p class="text-sm font-bold text-gray-300">不参加</p>
-              -->
-                <?php else : ?>
-                  <!-- 
-              <p class="text-sm font-bold text-green-400">参加</p>
-              -->
+                  <?php echo date("m月d日", strtotime('-3 day', $end_date)); ?>
                 <?php endif; ?>
               </div>
               <p class="text-sm"><span class="text-xl"><?php echo $event['total_participants']; ?></span>人参加 ></p>
