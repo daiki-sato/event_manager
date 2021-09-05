@@ -10,7 +10,7 @@ if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password']
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 } else {
     echo 'パスワードは半角英数字をそれぞれ1文字以上含んだ8文字以上で設定してください。';
-    echo '<a href="/auth/signup">ユーザー作成ページへ戻る</a>';
+    echo '<a href="/auth/ressetpassword/send_resetmail/">再設定ページへ戻る</a>';
     return false;
 }
 //登録処理
@@ -21,7 +21,8 @@ try {
     $params = array(':name' => $_POST["name"] , ':password' => $password , ':email' => $_POST["email"] , ':github_id'=> $_POST["github_id"]);
     $stmt->execute($params);
     echo '登録完了';
-    echo '<a href="/auth/signup">ユーザー作成ページへ戻る</a>';
+    echo '<a href="/auth/login">ログインページへ戻る</a>';
 } catch (\Exception $e) {
     echo 'エラーまたは登録済みのemailです。';
+    echo '<a href="/auth/login">ログインページへ戻る</a>';
 }
