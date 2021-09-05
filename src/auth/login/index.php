@@ -1,15 +1,15 @@
 <?php
 session_start();
-function h($s)
-{
-    return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
-}
-//ログイン済みの場合
-if (isset($_SESSION['ID'])) {
-    echo 'ようこそ' .  h($_SESSION['NAME']) . "さん<br>";
-    echo "<a href='/session/logout.php'>ログアウトはこちら。</a>";
-    echo "<a href='/'>TOPはこちら</a>";
-}
+// function h($s)
+// {
+//     return htmlspecialchars($s, ENT_QUOTES, 'utf-8');
+// }
+// //ログイン済みの場合
+// if (isset($_SESSION['ID'])) {
+//     echo 'ようこそ' .  h($_SESSION['NAME']) . "さん<br>";
+//     echo "<a href='/session/logout.php'>ログアウトはこちら。</a>";
+//     echo "<a href='/'>TOPはこちら</a>";
+// }
 
 ?>
 <!DOCTYPE html>

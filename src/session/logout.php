@@ -47,7 +47,7 @@ echo $output;
       <a href="/manage/eventlist/index.php"><img src="/img/header-logo.png" alt="posseロゴ" class="h-full"></a> 
       </div>
       <div class="box1">
-      <a href="/auth/login/index.php" class="text-white bg-blue-400 px-4 py-2 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-200">ログイン</a>
+      <a href="/auth/login/index.php" class="text-white bg-blue-400 px-4 py-2 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-200">ログインはこちら</a>
       </div>
     </div>
   </header>
