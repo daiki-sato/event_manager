@@ -21,7 +21,7 @@ docker-compose up -d
 メール受信
 ブラウザで `http://localhost:8025/` にアクセスしてください、メールボックスが表示されます
 
-###前日通知
+### 前日通知  
 advance_notification.php
-###3日前通知
+### 3日前通知  
 advance_notification3.php
