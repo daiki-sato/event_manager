@@ -2,10 +2,6 @@
 include($_SERVER['DOCUMENT_ROOT'] . "/dbconnect.php");
 include($_SERVER['DOCUMENT_ROOT'] . "/session/admin_session_check.php");
 
-echo $_POST["id"];
-echo $_POST["name"];
-echo $_POST["start_at"];
-echo $_POST["end_at"];
 // eventsに追加
 $sql = "INSERT INTO events (id , name , start_at , end_at) 
           VALUES (:id , :name , :start_at , :end_at)
