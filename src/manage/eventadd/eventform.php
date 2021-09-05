@@ -46,9 +46,9 @@ $eventId = $_GET['event_id'];
         <p class="sub">イベント名</p>
         <input class="event__add__form__event__name  event__add__form__item" type="textarea" name="name" value="<?= $events['name'] ?>">
         <p class="sub">開始日時</p>
-        <input placeholder="2020-08-09" class="event__add__form__event__date event__add__form__item" type="text" name="start_at" value="<?= $events['start_at'] ?>">
+        <input placeholder="2020-08-09 20:00:00" class="event__add__form__event__date event__add__form__item" type="text" name="start_at" value="<?= $events['start_at'] ?>">
         <p class="sub">終了日時</p>
-        <input placeholder="2020-08-09" class="event__add__form__event__date event__add__form__item" type="text" name="end_at" value="<?= $events['end_at'] ?>">
+        <input placeholder="2020-08-09 22:00:00" class="event__add__form__event__date event__add__form__item" type="text" name="end_at" value="<?= $events['end_at'] ?>">
         <p class="sub">イベント詳細</p>
         <textarea class="event__add__form__event__detail" name="text" rows="7" cols="150"><?= $detail_contents["text"] ?></textarea>
         <input type="submit" value="送信" class="event__add__form__button w-full p-3 text-md text-white bg-blue-400 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-300">
