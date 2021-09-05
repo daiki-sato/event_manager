@@ -40,6 +40,7 @@ if (isset($_GET['eventId'])) {
       'status_id' => $status_id["status_id"],
       'status' => $status_id["name"],
       'event_detail' => $event_detail["text"],
+      'user_id' => $userId,
       'deadline' => date("m月d日", strtotime('-3 day', $end_date)),
     ];
     

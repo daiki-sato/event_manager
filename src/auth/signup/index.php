@@ -33,7 +33,6 @@ function h($s)
   </header>
 
     <main class="bg-gray-100 h-screen">
-       
         <div class="w-full mx-auto py-10 px-5">
             <h2 class="text-md font-bold mb-5">サインアップ</h2>
             <label>（登録済みののメールアドレスを入力すると上書きができます。）</label>
