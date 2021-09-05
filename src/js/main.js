@@ -57,7 +57,7 @@ async function openModal(eventId) {
                 ${event.event_detail}
             </p>
             <hr class="my-4">
-            <p class="text-sm"><span class="text-xl">${event.total_participants}</span>人参加 ></p>
+            <p class="text-sm"><span class="text-xl">${event.total_participants ?? 0}</span>人参加 ></p>
             `
 
         modalHTML += `

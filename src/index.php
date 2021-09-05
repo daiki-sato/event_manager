@@ -138,7 +138,7 @@ $user_id = $_SESSION["ID"];
               <?php $participants_users = explode(",", $participants_number[$event['id']]["user_names"]); ?>
               <ul class="menu">
                 <li class="menu__item">
-                  <a class="text-sm menu__item__link js-menu__item__link"><span class="text-xl"><?= $participants_number[$event['id']]["number"]; ?></span>人参加 ></a>
+                  <a class="text-sm menu__item__link js-menu__item__link"><span class="text-xl"><?= $participants_number[$event['id']]["number"] ?? 0; ?></span>人参加 ></a>
                   <ul class="submenu">
                     <?php foreach ($participants_users as  $participants_user) : ?>
                       <li class="submenu__item"><a><?php echo $participants_user; ?></a></li>
