@@ -39,12 +39,10 @@ $stmt = $db->prepare($sql);
 $params = array(':id' => (int)$_POST["id"], ':event_id' => $eventId, ':text' => $_POST["text"]);
 
 $stmt->execute($params);
-
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,7 +51,6 @@ $stmt->execute($params);
   <title>Schedule | POSSE</title>
   <link rel="stylesheet" href="eventadd.css">
 </head>
-
 <body>
   <header class="h-16">
     <div class="flex justify-between items-center w-full h-full mx-auto pl-2 pr-5">
@@ -69,9 +66,8 @@ $stmt->execute($params);
     </div>
   </header>
   <main class="bg-gray-100 h-screen">
-   <h1>登録完了しました！</h1>
-   <img class="checked" src="/img/checked.png" alt="">
+    <h1>登録完了しました！</h1>
+    <img class="checked" src="/img/checked.png" alt="">
   </main>
 </body>
-
 </html>
