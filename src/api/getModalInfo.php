@@ -1,13 +1,22 @@
 <?php
+session_start();
 require('../dbconnect.php');
 header('Content-Type: application/json; charset=UTF-8');
 
 if (isset($_GET['eventId'])) {
   $eventId = htmlspecialchars($_GET['eventId']);
+  $userId  = $_SESSION["ID"];
   try {
-    $stmt = $db->prepare('SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) AS total_participants FROM events LEFT JOIN event_attendance ON events.id = event_attendance.event_id WHERE events.id = ? GROUP BY events.id');
+    $stmt = $db->prepare('SELECT events.id, events.name, events.start_at, events.end_at, count(event_attendance.id) AS total_participants FROM events LEFT JOIN event_attendance ON events.id = event_attendance.event_id WHERE events.id = ? AND event_attendance.status_id = 1 GROUP BY events.id');
     $stmt->execute(array($eventId));
     $event = $stmt->fetch();
+
+    $stmt = $db->prepare('SELECT text  FROM event_details  WHERE event_details.event_id = ? ');
+    $stmt->execute(array($eventId));
+    $event_detail = $stmt->fetch();
+
+    $stmt = $db->query("SELECT status_id , status.name  FROM event_attendance INNER JOIN status ON event_attendance.status_id = status.id WHERE  event_attendance.user_id = $userId AND  event_attendance.event_id = $eventId");
+    $status_id = $stmt->fetch();
     
     $start_date = strtotime($event['start_at']);
     $end_date = strtotime($event['end_at']);
@@ -28,6 +37,10 @@ if (isset($_GET['eventId'])) {
       'total_participants' => $event['total_participants'],
       'message' => $eventMessage,
       'status' => $status,
+      'status_id' => $status_id["status_id"],
+      'status' => $status_id["name"],
+      'event_detail' => $event_detail["text"],
+      'user_id' => $userId,
       'deadline' => date("m月d日", strtotime('-3 day', $end_date)),
     ];
     
