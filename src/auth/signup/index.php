@@ -45,7 +45,6 @@ function h($s)
                 <input name="github_id" placeholder="パスワード" class="w-full p-4 text-sm mb-3">
                 <input type="submit" value="サインアップ" class="cursor-pointer w-full p-3 text-md text-white bg-blue-400 rounded-3xl bg-gradient-to-r from-blue-600 to-blue-300">
             </form>
-
         </div>
     </main>
 </body>
